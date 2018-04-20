@@ -30,7 +30,7 @@ It is recommended to also run `dep ensure` to make sure that the dependencies ar
 ### Using [homebrew](https://brew.sh)
 
 ```
-brew tap mingrammer/clip https://github.com/mingrammer/flog.git
+brew tap mingrammer/flog https://github.com/mingrammer/flog.git
 brew install flog
 ```
 

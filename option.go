@@ -62,13 +62,15 @@ func defaultOptions() *Option {
 	}
 }
 
+// ParseFormat validates the given format
 func ParseFormat(format string) (string, error) {
 	if !ContainsString(validFormats, format) {
-		return "", errors.New(fmt.Sprintf("%s is not a valid format", format))
+		return "", fmt.Errorf("%s is not a valid format", format)
 	}
 	return format, nil
 }
 
+// ParseNumber validates the given number
 func ParseNumber(lines int) (int, error) {
 	if lines < 0 {
 		return 0, errors.New("lines can not be negative")
@@ -76,6 +78,7 @@ func ParseNumber(lines int) (int, error) {
 	return lines, nil
 }
 
+// ParseBytes validates the given bytes
 func ParseBytes(bytes int) (int, error) {
 	if bytes < 0 {
 		return 0, errors.New("bytes can not be negative")
@@ -83,6 +86,7 @@ func ParseBytes(bytes int) (int, error) {
 	return bytes, nil
 }
 
+// ParseSleep validates the given sleep
 func ParseSleep(sleep float64) (float64, error) {
 	if sleep < 0 {
 		return 0.0, errors.New("sleep can not be negative")
@@ -90,6 +94,7 @@ func ParseSleep(sleep float64) (float64, error) {
 	return sleep, nil
 }
 
+// ParseSplitBy validates the given split-by
 func ParseSplitBy(splitBy int) (int, error) {
 	if splitBy < 0 {
 		return 0, errors.New("split-by can not be negative")

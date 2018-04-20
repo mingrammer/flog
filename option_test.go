@@ -52,6 +52,7 @@ func TestParseSleep(t *testing.T) {
 	a.Equal(0.0, sleep, "sleep should be 0 when negative is given")
 	a.Error(err, "there should be an error when negative is given")
 }
+
 func TestParseSplitBy(t *testing.T) {
 	a := assert.New(t)
 

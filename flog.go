@@ -99,6 +99,7 @@ func NewLog(format string, delta time.Duration) string {
 	}
 }
 
+// NewSplitFileName creates a new file path with split count
 func NewSplitFileName(path string, count int) string {
 	logFileNameExt := filepath.Ext(path)
 	pathWithoutExt := strings.TrimSuffix(path, logFileNameExt)

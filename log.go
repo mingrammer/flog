@@ -13,7 +13,7 @@ const (
 	ApacheCombinedLog = "%s - %s %d [%s] \"%s %s\" %d %d \"%s\" \"%s\"\n"
 	// ApacheErrorLog:  [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
 	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s\n"
-	// SysLog RFC3164: {timestamp} {hostname} {application}[{pid}]: {message}
+	// RFC3164Log: {timestamp} {hostname} {application}[{pid}]: {message}
 	RFC3164Log = "%s %s %s[%d]: %s\n"
 )
 
@@ -63,7 +63,7 @@ func NewApacheErrorLog(delta time.Duration) string {
 	)
 }
 
-// NewSysLog creates a log string with syslog (RFC3164) format
+// NewRFC3164Log creates a log string with syslog (RFC3164) format
 func NewRFC3164Log(delta time.Duration) string {
 	return fmt.Sprintf(
 		RFC3164Log,

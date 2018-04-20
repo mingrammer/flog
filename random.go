@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+// RandResourceURI generates a random resource URI
 func RandResourceURI() string {
 	var url string
 	num := gofakeit.Number(1, 4)

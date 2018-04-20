@@ -7,13 +7,13 @@ import (
 )
 
 const (
-	// ApacheCommonLog: {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
+	// ApacheCommonLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
 	ApacheCommonLog = "%s - %s %d [%s] \"%s %s\" %d %d\n"
-	// ApacheCombinedLog: {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes} "{referrer}" "{agent}"
+	// ApacheCombinedLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes} "{referrer}" "{agent}"
 	ApacheCombinedLog = "%s - %s %d [%s] \"%s %s\" %d %d \"%s\" \"%s\"\n"
-	// ApacheErrorLog:  [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
+	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
 	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s\n"
-	// RFC3164Log: {timestamp} {hostname} {application}[{pid}]: {message}
+	// RFC3164Log : {timestamp} {hostname} {application}[{pid}]: {message}
 	RFC3164Log = "%s %s %s[%d]: %s\n"
 )
 

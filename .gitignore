@@ -1,0 +1,5 @@
+# Vendor
+vendor/
+
+# Jetbrains IDE
+.idea/

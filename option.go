@@ -1,0 +1,139 @@
+package main
+
+import (
+	"errors"
+	"fmt"
+	"github.com/spf13/pflag"
+	"os"
+)
+
+const usage = `flog is a fake log generator for common log formats
+
+Usage: flog [options]
+
+Options:
+  -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
+  -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
+  -n, --number integer     Number of lines generate.
+  -b, --bytes integer      Size of logs to generate. (in bytes) 
+                           "bytes" will be ignored when "number" is set.
+  -s, --sleep numeric      Sleep interval time between lines. (in seconds)
+  -p, --split-by integer   Split the logs by this value in lines or bytes.
+                           When "number" is set, it specifies the maximum number of lines for a log file.
+                           When "bytes" is set, it specifies the maximum size of a log file.
+  -w, --overwrite          [Warning] This will overwrite the existing file with new created logs.
+`
+
+var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164"}
+
+// Option defines log generation options
+type Option struct {
+	Format    string
+	Output    string
+	Number    int
+	Bytes     int
+	Sleep     float64
+	SplitBy   int
+	Overwrite bool
+}
+
+func init() {
+	pflag.Usage = printUsage
+}
+
+func printUsage() {
+	fmt.Print(usage)
+}
+
+func errorExit(err error) {
+	os.Stderr.WriteString(err.Error() + "\n")
+	os.Exit(-1)
+}
+
+func defaultOptions() *Option {
+	return &Option{
+		Format:    "apache_common",
+		Output:    "generated.log",
+		Number:    1000,
+		Bytes:     0,
+		Sleep:     0.0,
+		SplitBy:   0,
+		Overwrite: false,
+	}
+}
+
+func ParseFormat(format string) (string, error) {
+	if !ContainsString(validFormats, format) {
+		return "", errors.New(fmt.Sprintf("%s is not a valid format", format))
+	}
+	return format, nil
+}
+
+func ParseNumber(lines int) (int, error) {
+	if lines < 0 {
+		return 0, errors.New("lines can not be negative")
+	}
+	return lines, nil
+}
+
+func ParseBytes(bytes int) (int, error) {
+	if bytes < 0 {
+		return 0, errors.New("bytes can not be negative")
+	}
+	return bytes, nil
+}
+
+func ParseSleep(sleep float64) (float64, error) {
+	if sleep < 0 {
+		return 0.0, errors.New("sleep can not be negative")
+	}
+	return sleep, nil
+}
+
+func ParseSplitBy(splitBy int) (int, error) {
+	if splitBy < 0 {
+		return 0, errors.New("split-by can not be negative")
+	}
+	return splitBy, nil
+}
+
+// ParseOptions parses given parameters from command line
+func ParseOptions() *Option {
+	var err error
+
+	opts := defaultOptions()
+
+	help := pflag.BoolP("help", "h", false, "Show usage")
+	format := pflag.StringP("format", "f", opts.Format, "Log format")
+	output := pflag.StringP("output", "o", opts.Output, "Output filename. Path-like filename is allowed")
+	number := pflag.IntP("number", "n", opts.Number, "Number of lines to generate")
+	bytes := pflag.IntP("bytes", "b", opts.Bytes, "Size of logs to generate. (in bytes)")
+	sleep := pflag.Float64P("sleep", "s", opts.Sleep, "Sleep interval time between lines. (in seconds)")
+	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Split by this value in lines or bytes")
+	overwrite := pflag.BoolP("overwrite", "w", false, "To overwrite the existing file with new created logs")
+
+	pflag.Parse()
+
+	if *help {
+		printUsage()
+		os.Exit(0)
+	}
+	if opts.Format, err = ParseFormat(*format); err != nil {
+		errorExit(err)
+	}
+	if opts.Number, err = ParseNumber(*number); err != nil {
+		errorExit(err)
+	}
+	if opts.Bytes, err = ParseBytes(*bytes); err != nil {
+		errorExit(err)
+	}
+	if opts.Sleep, err = ParseSleep(*sleep); err != nil {
+		errorExit(err)
+	}
+	if opts.SplitBy, err = ParseSplitBy(*splitBy); err != nil {
+		errorExit(err)
+	}
+	opts.Output = *output
+	opts.Overwrite = *overwrite
+	return opts
+}

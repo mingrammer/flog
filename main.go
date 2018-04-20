@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/mingrammer/cfmt"
 	"math/rand"
 	"time"
-	"github.com/mingrammer/cfmt"
 )
 
 func main() {

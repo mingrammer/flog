@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
-  <a href="https://goreportcard.com/report/github.com/mingrammer/clip"><img src="https://goreportcard.com/badge/github.com/mingrammer/clip"/></a>
+  <a href="https://goreportcard.com/report/github.com/mingrammer/flog"><img src="https://goreportcard.com/badge/github.com/mingrammer/flog"/></a>
 </p>
 
 <p align="center">

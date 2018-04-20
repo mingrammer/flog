@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 	"syscall"
@@ -14,15 +15,29 @@ import (
 // Run checks overwrite flag and generates logs with given options
 func Run(option *Option) error {
 	logDir := filepath.Dir(option.Output)
-	oldMask := syscall.Umask(0000)
-	if err := os.MkdirAll(logDir, 0766); err != nil {
+	if err := MakeWritableDir(logDir); err != nil {
 		return err
 	}
-	syscall.Umask(oldMask)
 	if _, err := os.Stat(option.Output); err == nil && !option.Overwrite {
 		return errors.New(option.Output + " already exists. You can overwrite with -w option")
 	}
 	return Generate(option)
+}
+
+func MakeWritableDir(logDir string) error {
+	switch runtime.GOOS {
+	case "darwin", "linux":
+		oldMask := syscall.Umask(0000)
+		if err := os.MkdirAll(logDir, 0766); err != nil {
+			return err
+		}
+		syscall.Umask(oldMask)
+	default:
+		if err := os.MkdirAll(logDir, 0766); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Generate generates the logs with given options

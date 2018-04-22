@@ -35,6 +35,10 @@ brew tap mingrammer/flog https://github.com/mingrammer/flog.git
 brew install flog
 ```
 
+### Using .tar.gz archive
+
+Download gzip file from [Github Releases](https://github.com/mingrammer/flog/releases/latest) according to your OS. Then, copy the unzipped executable to under system path.
+
 ## Usage
 
 There are useful options. (`flog --help`)

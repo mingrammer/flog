@@ -39,7 +39,7 @@ brew install flog
 
 There are useful options. (`flog --help`)
 
-```bash
+```
 Options:
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")

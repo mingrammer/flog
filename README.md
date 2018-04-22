@@ -5,6 +5,7 @@
 <p align="center">
   <a href="/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
   <a href="https://goreportcard.com/report/github.com/mingrammer/flog"><img src="https://goreportcard.com/badge/github.com/mingrammer/flog"/></a>
+  <a href="https://travis-ci.org/mingrammer/flog"><img src="https://travis-ci.org/mingrammer/flog.svg?branch=master"/></a>
 </p>
 
 <p align="center">
@@ -36,12 +37,13 @@ brew install flog
 
 ## Usage
 
-You can see several options with `flog --help`.
+There are useful options. (`flog --help`)
 
 ```bash
 Options:
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
+  -t, --type string        Log output type. ("stdout"|"log"|"gz") (default "stdout")
   -n, --number integer     Number of lines generate.
   -b, --bytes integer      Size of logs to generate. (in bytes)
                            "bytes" will be ignored when "number" is set.
@@ -53,17 +55,17 @@ Options:
 ```
 
 ```bash
-# Generate a single log file with 1000 lines of logs
+# Generate 1000 lines of logs to stdout
 flog
 
 # Generate a single log file with 1000 lines of logs, then overwrite existing log file
-flog -w
+flog -t log -w
 
-# Generate a single log file with 3000 lines of logs every 10 seconds
-flog -n 3000 -s 10
+# Generate a single log gzip file with 3000 lines of logs every 10 seconds
+flog -t gz -o log.gz -n 3000 -s 10
 
 # Generate logs up to 10MB and split the log files every 1MB in "web/log/apache.log" path with apache combined format
-flog -f apache_combined -o web/log/apache.log -b 10485760 -p 1048576
+flog -t log -f apache_combined -o web/log/apache.log -b 10485760 -p 1048576
 ```
 
 ## Features

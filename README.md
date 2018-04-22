@@ -8,12 +8,12 @@
 </p>
 
 <p align="center">
-A fake log generator for common formats
+A fake log generator for common log formats
 </p>
 
 <br><br><br>
 
-flog is a fake log generator for common formats such as apache-common, apache error and RFC3164 syslog.
+flog is a fake log generator for common log formats such as apache-common, apache error and RFC3164 syslog.
 
 It is useful for testing some tasks which require log data like amazon kinesis log stream test.
 

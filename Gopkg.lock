@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  branch = "master"
+  name = "github.com/bouk/monkey"
+  packages = ["."]
+  revision = "5df1f207ff77e025801505ae4d903133a0b4353f"
+
+[[projects]]
   name = "github.com/brianvoe/gofakeit"
   packages = [
     ".",
@@ -67,6 +73,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f64f3c3d9a360f9b23211864eb5639656edd7cecc64f64caf62378c664018788"
+  inputs-digest = "9c3cfd53c866eb88550aedc565ebb20cec880ca976ff404ee50cb9e89f188481"
   solver-name = "gps-cdcl"
   solver-version = 1

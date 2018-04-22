@@ -75,8 +75,7 @@ flog -t log -f apache_combined -o web/log/apache.log -b 10485760 -p 1048576
 * [ ] Statistical random log generator
 * [x] Support `apache common`, `apache combined`, `apache error` and `rfc3164` log format
 * [ ] Support some other syslog formats
-* [ ] Support stdout log
-* [ ] Support compressed log (e.g. `gz`)
+* [x] Support stdout, file and gzip type of logging
 
 ## License
 

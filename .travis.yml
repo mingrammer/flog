@@ -1,12 +1,9 @@
 language: go
 
 go:
-  - 1.6
-  - 1.7
-  - 1.8
-  - 1.9
-  - 1.10
-  - master
+  - "1.9"
+  - "1.10"
+  - "master"
 
 before_install:
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh

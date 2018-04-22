@@ -14,6 +14,7 @@ Usage: flog [options]
 Options:
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
+  -t, --type string        Log output type. ("stdout"|"log"|"gz") (default "stdout")
   -n, --number integer     Number of lines generate.
   -b, --bytes integer      Size of logs to generate. (in bytes) 
                            "bytes" will be ignored when "number" is set.
@@ -25,11 +26,13 @@ Options:
 `
 
 var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164"}
+var validTypes = []string{"stdout", "log", "gz"}
 
-// Option defines log generation options
+// Option defines log generator options
 type Option struct {
 	Format    string
 	Output    string
+	Type      string
 	Number    int
 	Bytes     int
 	Sleep     float64
@@ -54,6 +57,7 @@ func defaultOptions() *Option {
 	return &Option{
 		Format:    "apache_common",
 		Output:    "generated.log",
+		Type:      "stdout",
 		Number:    1000,
 		Bytes:     0,
 		Sleep:     0.0,
@@ -68,6 +72,13 @@ func ParseFormat(format string) (string, error) {
 		return "", fmt.Errorf("%s is not a valid format", format)
 	}
 	return format, nil
+}
+
+func ParseType(logType string) (string, error) {
+	if !ContainsString(validTypes, logType) {
+		return "", fmt.Errorf("%s is not a valid log type", logType)
+	}
+	return logType, nil
 }
 
 // ParseNumber validates the given number
@@ -111,6 +122,7 @@ func ParseOptions() *Option {
 	help := pflag.BoolP("help", "h", false, "Show usage")
 	format := pflag.StringP("format", "f", opts.Format, "Log format")
 	output := pflag.StringP("output", "o", opts.Output, "Output filename. Path-like filename is allowed")
+	logType := pflag.StringP("type", "t", opts.Type, "Log output type")
 	number := pflag.IntP("number", "n", opts.Number, "Number of lines to generate")
 	bytes := pflag.IntP("bytes", "b", opts.Bytes, "Size of logs to generate. (in bytes)")
 	sleep := pflag.Float64P("sleep", "s", opts.Sleep, "Sleep interval time between lines. (in seconds)")
@@ -124,6 +136,9 @@ func ParseOptions() *Option {
 		os.Exit(0)
 	}
 	if opts.Format, err = ParseFormat(*format); err != nil {
+		errorExit(err)
+	}
+	if opts.Type, err = ParseType(*logType); err != nil {
 		errorExit(err)
 	}
 	if opts.Number, err = ParseNumber(*number); err != nil {

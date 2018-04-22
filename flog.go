@@ -1,7 +1,9 @@
 package main
 
 import (
+	"compress/gzip"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -11,58 +13,82 @@ import (
 
 // Generate generates the logs with given options
 func Generate(option *Option) error {
+	splitCount := 1
+	delta := time.Duration(0)
+
 	logFileName := option.Output
-	logFile, err := os.Create(logFileName)
+	writer, err := NewWriter(option.Type, logFileName)
 	if err != nil {
 		return err
 	}
-
-	delta := time.Duration(option.Sleep) * time.Second
-	splitCount := 1
 
 	if option.Bytes == 0 {
 		// Generate the logs up to maximum number of lines
 		for line := 0; line < option.Number; line++ {
 			log := NewLog(option.Format, delta)
-			logFile.WriteString(log)
+			writer.Write([]byte(log))
 
-			if (option.SplitBy > 0) && (line >= option.SplitBy*splitCount) {
-				logFile.Close()
+			if (option.Type != "stdout") && (option.SplitBy > 0) && (line > option.SplitBy*splitCount) {
+				writer.Close()
 				fmt.Println(logFileName, "is created.")
 
 				logFileName = NewSplitFileName(option.Output, splitCount)
-				logFile, _ = os.Create(logFileName)
+				writer, _ = NewWriter(option.Type, logFileName)
+
 				splitCount++
 			}
 
 			delta += time.Duration(option.Sleep) * time.Second
 		}
-		logFile.Close()
-		fmt.Println(logFileName, "is created.")
 	} else {
 		// Generate the logs up to maximum size in byte
 		bytes := 0
 		for bytes < option.Bytes {
-			delta += time.Duration(option.Sleep) * time.Second
 			log := NewLog(option.Format, delta)
-			logFile.WriteString(log)
+			writer.Write([]byte(log))
 
 			bytes += len(log)
-			if (option.SplitBy > 0) && (bytes >= option.SplitBy*splitCount) {
-				logFile.Close()
+			if (option.Type != "stdout") && (option.SplitBy > 0) && (bytes > option.SplitBy*splitCount+1) {
+				writer.Close()
 				fmt.Println(logFileName, "is created.")
 
 				logFileName = NewSplitFileName(option.Output, splitCount)
-				logFile, _ = os.Create(logFileName)
+				writer, _ = NewWriter(option.Type, logFileName)
+
 				splitCount++
 			}
 
 			delta += time.Duration(option.Sleep) * time.Second
 		}
-		logFile.Close()
+	}
+
+	if option.Type != "stdout" {
+		writer.Close()
 		fmt.Println(logFileName, "is created.")
 	}
 	return nil
+}
+
+// NewWriter makes a file descriptor corresponding to given log type
+func NewWriter(logType string, logFileName string) (io.WriteCloser, error) {
+	switch logType {
+	case "stdout":
+		return os.Stdout, nil
+	case "log":
+		logFile, err := os.Create(logFileName)
+		if err != nil {
+			return nil, err
+		}
+		return logFile, nil
+	case "gz":
+		logFile, err := os.Create(logFileName)
+		if err != nil {
+			return nil, err
+		}
+		return gzip.NewWriter(logFile), nil
+	default:
+		return nil, nil
+	}
 }
 
 // NewLog creates a log for given format

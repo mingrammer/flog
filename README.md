@@ -39,6 +39,12 @@ brew install flog
 
 Download gzip file from [Github Releases](https://github.com/mingrammer/flog/releases/latest) according to your OS. Then, copy the unzipped executable to under system path.
 
+### Using [docker](https://www.docker.com)
+
+```
+docker run -it --rm mingrammer/flog
+```
+
 ## Usage
 
 There are useful options. (`flog --help`)

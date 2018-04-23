@@ -6,6 +6,7 @@
   <a href="/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg"/></a>
   <a href="https://goreportcard.com/report/github.com/mingrammer/flog"><img src="https://goreportcard.com/badge/github.com/mingrammer/flog"/></a>
   <a href="https://travis-ci.org/mingrammer/flog"><img src="https://travis-ci.org/mingrammer/flog.svg?branch=master"/></a>
+  <a href="https://hub.docker.com/r/mingrammer/flog"><img src="https://img.shields.io/docker/pulls/mingrammer/flog.svg"/></a>
 </p>
 
 <p align="center">

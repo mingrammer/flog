@@ -69,7 +69,7 @@ func Generate(option *Option) error {
 	return nil
 }
 
-// NewWriter makes a file descriptor corresponding to given log type
+// NewWriter returns a closeable writer corresponding to given log type
 func NewWriter(logType string, logFileName string) (io.WriteCloser, error) {
 	switch logType {
 	case "stdout":

@@ -23,6 +23,8 @@ It is useful for testing some tasks which require log data like amazon kinesis l
 
 ### Using go get
 
+> **You need Go 1.10+**
+
 ```bash
 go get github.com/mingrammer/flog
 ```

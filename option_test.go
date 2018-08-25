@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestParseFormat(t *testing.T) {
@@ -46,6 +47,10 @@ func TestParseSleep(t *testing.T) {
 
 	sleep, err := ParseSleep(10)
 	a.Equal(10.0, sleep, "sleep should be 10")
+	a.NoError(err, "there should be no error")
+
+	sleep, err = ParseSleep(5.5)
+	a.Equal(5.5, sleep, "sleep should be 5.5")
 	a.NoError(err, "there should be no error")
 
 	sleep, err = ParseSleep(-10)

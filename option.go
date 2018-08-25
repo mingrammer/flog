@@ -3,8 +3,9 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/spf13/pflag"
 	"os"
+
+	"github.com/spf13/pflag"
 )
 
 const usage = `flog is a fake log generator for common log formats
@@ -16,7 +17,7 @@ Options:
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        Log output type. ("stdout"|"log"|"gz") (default "stdout")
   -n, --number integer     Number of lines generate.
-  -b, --bytes integer      Size of logs to generate. (in bytes) 
+  -b, --bytes integer      Size of logs to generate. (in bytes)
                            "bytes" will be ignored when "number" is set.
   -s, --sleep numeric      Sleep interval time between lines. (in seconds)
   -p, --split-by integer   Split the logs by this value in lines or bytes.

@@ -3,6 +3,7 @@ vendor/
 
 # Build & binary
 dist/
+flog
 
 # Jetbrains IDE
 .idea/

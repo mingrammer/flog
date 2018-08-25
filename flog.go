@@ -38,7 +38,7 @@ func Generate(option *Option) error {
 				splitCount++
 			}
 
-			delta += time.Duration(option.Sleep) * time.Second
+			delta += time.Duration(option.Sleep*float64(time.Second/time.Millisecond)) * time.Millisecond
 		}
 	} else {
 		// Generate the logs up to maximum size in byte
@@ -58,7 +58,7 @@ func Generate(option *Option) error {
 				splitCount++
 			}
 
-			delta += time.Duration(option.Sleep) * time.Second
+			delta += time.Duration(option.Sleep*float64(time.Second/time.Millisecond)) * time.Millisecond
 		}
 	}
 

@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/brianvoe/gofakeit"
 	"strings"
+
+	"github.com/brianvoe/gofakeit"
 )
 
 // RandResourceURI generates a random resource URI

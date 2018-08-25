@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/bouk/monkey"
 	"math/rand"
 	"time"
+
+	"github.com/bouk/monkey"
 )
 
 var stopped = time.Date(2018, 04, 22, 9, 30, 0, 0, time.UTC)

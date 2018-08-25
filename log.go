@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/brianvoe/gofakeit"
 	"time"
+
+	"github.com/brianvoe/gofakeit"
 )
 
 const (

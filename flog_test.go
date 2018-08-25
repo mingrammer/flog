@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/bouk/monkey"
-	"github.com/stretchr/testify/assert"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/bouk/monkey"
+	"github.com/stretchr/testify/assert"
 )
 
 func ExampleNewLog() {

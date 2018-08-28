@@ -57,10 +57,10 @@ Options:
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        Log output type. ("stdout"|"log"|"gz") (default "stdout")
-  -n, --number integer     Number of lines generate.
-  -b, --bytes integer      Size of logs to generate. (in bytes)
+  -n, --number integer     Number of lines to generate.
+  -b, --bytes integer      Size of logs to generate (in bytes).
                            "bytes" will be ignored when "number" is set.
-  -s, --sleep numeric      Sleep interval time between lines. (in seconds)
+  -s, --sleep numeric      Sleep interval time between lines (in seconds). It does not actually sleep every log generation.
   -p, --split-by integer   Split the logs by this value in lines or bytes.
                            When "number" is set, it specifies the maximum number of lines for a log file.
                            When "bytes" is set, it specifies the maximum size of a log file.

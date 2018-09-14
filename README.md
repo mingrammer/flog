@@ -52,7 +52,7 @@ docker run -it --rm mingrammer/flog
 
 There are useful options. (`flog --help`)
 
-```
+```console
 Options:
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
@@ -67,7 +67,7 @@ Options:
   -w, --overwrite          [Warning] This will overwrite the existing file with new created logs.
 ```
 
-```bash
+```console
 # Generate 1000 lines of logs to stdout
 flog
 

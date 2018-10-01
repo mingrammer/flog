@@ -20,10 +20,10 @@ Options:
   -b, --bytes integer      Size of logs to generate (in bytes).
                            "bytes" will be ignored when "number" is set.
   -s, --sleep numeric      Sleep interval time between lines (in seconds). It does not actually sleep every log generation.
-  -p, --split-by integer   Split the logs by this value in lines or bytes.
-                           When "number" is set, it specifies the maximum number of lines for a log file.
-                           When "bytes" is set, it specifies the maximum size of a log file.
-  -w, --overwrite          [Warning] This will overwrite the existing file with new created logs.
+  -p, --split-by integer   Set the maximum number of lines or maximum size in bytes of a log file.
+                           With "number" option, the logs will be split every time a certain number of lines is reached.
+                           With "byte" option, the logs will be split every time a certain size in bytes is reached.
+  -w, --overwrite          [Warning] Overwrite the existing log files.
 `
 
 var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164"}

@@ -75,6 +75,7 @@ func ParseFormat(format string) (string, error) {
 	return format, nil
 }
 
+// ParseType validates the given type
 func ParseType(logType string) (string, error) {
 	if !ContainsString(validTypes, logType) {
 		return "", fmt.Errorf("%s is not a valid log type", logType)

@@ -8,9 +8,12 @@ import (
 	"github.com/spf13/pflag"
 )
 
+const version = "0.1.3"
 const usage = `flog is a fake log generator for common log formats
 
 Usage: flog [options]
+
+Version: %s
 
 Options:
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
@@ -46,7 +49,11 @@ func init() {
 }
 
 func printUsage() {
-	fmt.Print(usage)
+	fmt.Printf(usage, version)
+}
+
+func printVersion() {
+	fmt.Printf("flog version %s\n", version)
 }
 
 func errorExit(err error) {
@@ -122,6 +129,7 @@ func ParseOptions() *Option {
 	opts := defaultOptions()
 
 	help := pflag.BoolP("help", "h", false, "Show usage")
+	version := pflag.BoolP("version", "v", false, "Show version")
 	format := pflag.StringP("format", "f", opts.Format, "Log format")
 	output := pflag.StringP("output", "o", opts.Output, "Output filename. Path-like filename is allowed")
 	logType := pflag.StringP("type", "t", opts.Type, "Log output type")
@@ -135,6 +143,10 @@ func ParseOptions() *Option {
 
 	if *help {
 		printUsage()
+		os.Exit(0)
+	}
+	if *version {
+		printVersion()
 		os.Exit(0)
 	}
 	if opts.Format, err = ParseFormat(*format); err != nil {

@@ -1,1 +1,1 @@
-FROM cometkim/go-dep-onbuild
+FROM mingrammer/go-mod-onbuild

@@ -1,0 +1,6 @@
+*.md
+.git
+.idea
+vendor
+dist
+formula

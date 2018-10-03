@@ -21,8 +21,8 @@ Options:
                            "bytes" will be ignored when "number" is set.
   -s, --sleep numeric      Sleep interval time between lines (in seconds). It does not actually sleep every log generation.
   -p, --split-by integer   Set the maximum number of lines or maximum size in bytes of a log file.
-                           With "number" option, the logs will be split every time a certain number of lines is reached.
-                           With "byte" option, the logs will be split every time a certain size in bytes is reached.
+                           With "number" option, the logs will be split whenever the maximum number of lines is reached.
+                           With "byte" option, the logs will be split whenever the maximum size in bytes is reached.
   -w, --overwrite          [Warning] Overwrite the existing log files.
 `
 
@@ -128,8 +128,8 @@ func ParseOptions() *Option {
 	number := pflag.IntP("number", "n", opts.Number, "Number of lines to generate")
 	bytes := pflag.IntP("bytes", "b", opts.Bytes, "Size of logs to generate. (in bytes)")
 	sleep := pflag.Float64P("sleep", "s", opts.Sleep, "Sleep interval time between lines. (in seconds)")
-	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Split by this value in lines or bytes")
-	overwrite := pflag.BoolP("overwrite", "w", false, "To overwrite the existing file with new created logs")
+	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Set the maximum number of lines or maximum size in bytes of a log file")
+	overwrite := pflag.BoolP("overwrite", "w", false, "Overwrite the existing log files")
 
 	pflag.Parse()
 

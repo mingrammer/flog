@@ -15,7 +15,7 @@ const (
 	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
 	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s\n"
 	// RFC3164Log : {timestamp} {hostname} {application}[{pid}]: {message}
-	RFC3164Log = "%s %s %s[%d]: %s\n"
+	RFC3164Log = "<%d>%s %s %s[%d]: %s\n"
 )
 
 // NewApacheCommonLog creates a log string with apache common log format
@@ -68,7 +68,8 @@ func NewApacheErrorLog(delta time.Duration) string {
 func NewRFC3164Log(delta time.Duration) string {
 	return fmt.Sprintf(
 		RFC3164Log,
-		time.Now().Add(delta).Format(time.RFC3339),
+		gofakeit.Number(0, 191),
+		time.Now().Add(delta).Format(RFC3164),
 		gofakeit.Username(),
 		gofakeit.BuzzWord(),
 		gofakeit.Number(1, 10000),

@@ -47,5 +47,5 @@ func ExampleNewRFC3164Log() {
 	defer monkey.Unpatch(time.Now)
 
 	fmt.Println(NewRFC3164Log(0))
-	// Output: 2018-04-22T09:30:00Z Daniel2872 info-mediaries[9030]: I'Ll reboot the auxiliary USB protocol, that should sensor the SAS capacitor!
+	// Output: <24>Apr 22 09:30:00 Moen8727 concept[3160]: If we back up the program, we can get to the SSL sensor through the redundant SAS program!
 }

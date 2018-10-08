@@ -23,7 +23,7 @@ func Generate(option *Option) error {
 	}
 
 	if option.Bytes == 0 {
-		// Generate the logs up to maximum number of lines
+		// Generates the logs until the certain number of lines is reached
 		for line := 0; line < option.Number; line++ {
 			log := NewLog(option.Format, delta)
 			writer.Write([]byte(log))
@@ -41,7 +41,7 @@ func Generate(option *Option) error {
 			delta += time.Duration(option.Sleep*float64(time.Second/time.Millisecond)) * time.Millisecond
 		}
 	} else {
-		// Generate the logs up to maximum size in byte
+		// Generates the logs until the certain size in bytes is reached
 		bytes := 0
 		for bytes < option.Bytes {
 			log := NewLog(option.Format, delta)

@@ -26,7 +26,7 @@ func Generate(option *Option) error {
 		// Generates the logs until the certain number of lines is reached
 		for line := 0; line < option.Number; line++ {
 			log := NewLog(option.Format, delta)
-			writer.Write([]byte(log))
+			writer.Write([]byte(log + "\n"))
 
 			if (option.Type != "stdout") && (option.SplitBy > 0) && (line > option.SplitBy*splitCount) {
 				writer.Close()
@@ -45,7 +45,7 @@ func Generate(option *Option) error {
 		bytes := 0
 		for bytes < option.Bytes {
 			log := NewLog(option.Format, delta)
-			writer.Write([]byte(log))
+			writer.Write([]byte(log + "\n"))
 
 			bytes += len(log)
 			if (option.Type != "stdout") && (option.SplitBy > 0) && (bytes > option.SplitBy*splitCount+1) {

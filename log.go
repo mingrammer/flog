@@ -9,13 +9,13 @@ import (
 
 const (
 	// ApacheCommonLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
-	ApacheCommonLog = "%s - %s %d [%s] \"%s %s\" %d %d\n"
+	ApacheCommonLog = "%s - %s %d [%s] \"%s %s\" %d %d"
 	// ApacheCombinedLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes} "{referrer}" "{agent}"
-	ApacheCombinedLog = "%s - %s %d [%s] \"%s %s\" %d %d \"%s\" \"%s\"\n"
+	ApacheCombinedLog = "%s - %s %d [%s] \"%s %s\" %d %d \"%s\" \"%s\""
 	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
-	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s\n"
+	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s"
 	// RFC3164Log : {timestamp} {hostname} {application}[{pid}]: {message}
-	RFC3164Log = "<%d>%s %s %s[%d]: %s\n"
+	RFC3164Log = "<%d>%s %s %s[%d]: %s"
 )
 
 // NewApacheCommonLog creates a log string with apache common log format

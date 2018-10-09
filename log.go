@@ -14,7 +14,7 @@ const (
 	ApacheCombinedLog = "%s - %s %d [%s] \"%s %s\" %d %d \"%s\" \"%s\""
 	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
 	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s"
-	// RFC3164Log : {timestamp} {hostname} {application}[{pid}]: {message}
+	// RFC3164Log : <priority>{timestamp} {hostname} {application}[{pid}]: {message}
 	RFC3164Log = "<%d>%s %s %s[%d]: %s"
 )
 

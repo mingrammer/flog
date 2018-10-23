@@ -16,6 +16,7 @@ Usage: flog [options]
 Version: %s
 
 Options:
+  -l, --loop               Loop output forever until killed.
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        Log output type. ("stdout"|"log"|"gz") (default "stdout")
@@ -42,6 +43,7 @@ type Option struct {
 	Sleep     float64
 	SplitBy   int
 	Overwrite bool
+	Forever   bool
 }
 
 func init() {
@@ -71,6 +73,7 @@ func defaultOptions() *Option {
 		Sleep:     0.0,
 		SplitBy:   0,
 		Overwrite: false,
+		Forever:   false,
 	}
 }
 
@@ -138,6 +141,7 @@ func ParseOptions() *Option {
 	sleep := pflag.Float64P("sleep", "s", opts.Sleep, "Sleep interval time between lines. (in seconds)")
 	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Set the maximum number of lines or maximum size in bytes of a log file")
 	overwrite := pflag.BoolP("overwrite", "w", false, "Overwrite the existing log files")
+	forever := pflag.BoolP("loop", "l", false, "Loop output forever until killed")
 
 	pflag.Parse()
 
@@ -169,5 +173,6 @@ func ParseOptions() *Option {
 	}
 	opts.Output = *output
 	opts.Overwrite = *overwrite
+	opts.Forever = *forever
 	return opts
 }

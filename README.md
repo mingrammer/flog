@@ -65,6 +65,7 @@ Options:
                            With "number" option, the logs will be split every time a certain number of lines is reached.
                            With "bytes" option, the logs will be split every time a certain size in bytes is reached.
   -w, --overwrite          [Warning] Overwrite the existing log files.
+  -l, --loop               Loop output forever until killed.
 ```
 
 ```console
@@ -79,6 +80,9 @@ flog -t gz -o log.gz -n 3000 -s 10
 
 # Generate logs up to 10MB and split the log files every 1MB in "web/log/apache.log" path with apache combined format
 flog -t log -f apache_combined -o web/log/apache.log -b 10485760 -p 1048576
+
+# Generate logs in rfc3164 format infinitely
+flog -f rfc3164 -l
 ```
 
 ## Features

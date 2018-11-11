@@ -22,6 +22,14 @@ func Generate(option *Option) error {
 		return err
 	}
 
+	if option.Forever {
+		for {
+			log := NewLog(option.Format, delta)
+			writer.Write([]byte(log + "\n"))
+			delta += time.Duration(option.Sleep*float64(time.Second/time.Millisecond)) * time.Millisecond
+		}
+	}
+
 	if option.Bytes == 0 {
 		// Generates the logs until the certain number of lines is reached
 		for line := 0; line < option.Number; line++ {

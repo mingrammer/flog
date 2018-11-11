@@ -16,7 +16,6 @@ Usage: flog [options]
 Version: %s
 
 Options:
-  -l, --loop               Loop output forever until killed.
   -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
   -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        Log output type. ("stdout"|"log"|"gz") (default "stdout")
@@ -28,6 +27,7 @@ Options:
                            With "number" option, the logs will be split whenever the maximum number of lines is reached.
                            With "byte" option, the logs will be split whenever the maximum size in bytes is reached.
   -w, --overwrite          [Warning] Overwrite the existing log files.
+  -l, --loop               Loop output forever until killed.
 `
 
 var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164"}

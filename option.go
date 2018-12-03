@@ -79,7 +79,7 @@ func defaultOptions() *Option {
 
 // ParseFormat validates the given format
 func ParseFormat(format string) (string, error) {
-	if !ContainsString(validFormats, format) {
+	if !containString(validFormats, format) {
 		return "", fmt.Errorf("%s is not a valid format", format)
 	}
 	return format, nil
@@ -87,7 +87,7 @@ func ParseFormat(format string) (string, error) {
 
 // ParseType validates the given type
 func ParseType(logType string) (string, error) {
-	if !ContainsString(validTypes, logType) {
+	if !containString(validTypes, logType) {
 		return "", fmt.Errorf("%s is not a valid log type", logType)
 	}
 	return logType, nil

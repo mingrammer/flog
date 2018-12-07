@@ -35,7 +35,7 @@ brew:
   name: flog
   github:
     owner: mingrammer
-    name: flog
+    name: homebrew-flog
   commit_author:
     name: mingrammer
     email: mingrammer@gmail.com

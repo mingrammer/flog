@@ -16,18 +16,18 @@ Usage: flog [options]
 Version: %s
 
 Options:
-  -f, --format string      Choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
-  -o, --output string      Output filename. Path-like is allowed. (default "generated.log")
-  -t, --type string        Log output type. ("stdout"|"log"|"gz") (default "stdout")
-  -n, --number integer     Number of lines to generate.
-  -b, --bytes integer      Size of logs to generate (in bytes).
+  -f, --format string      choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
+  -o, --output string      output filename. Path-like is allowed. (default "generated.log")
+  -t, --type string        log output type. ("stdout"|"log"|"gz") (default "stdout")
+  -n, --number integer     number of lines to generate.
+  -b, --bytes integer      size of logs to generate (in bytes).
                            "bytes" will be ignored when "number" is set.
-  -s, --sleep numeric      Sleep interval time between lines (in seconds). It does not actually sleep every log generation.
-  -p, --split-by integer   Set the maximum number of lines or maximum size in bytes of a log file.
-                           With "number" option, the logs will be split whenever the maximum number of lines is reached.
-                           With "byte" option, the logs will be split whenever the maximum size in bytes is reached.
-  -w, --overwrite          [Warning] Overwrite the existing log files.
-  -l, --loop               Loop output forever until killed.
+  -s, --sleep numeric      sleep interval time between lines (in seconds). It does not actually sleep every log generation.
+  -p, --split-by integer   set the maximum number of lines or maximum size in bytes of a log file.
+                           with "number" option, the logs will be split whenever the maximum number of lines is reached.
+                           with "byte" option, the logs will be split whenever the maximum size in bytes is reached.
+  -w, --overwrite          overwrite the existing log files.
+  -l, --loop               loop output forever until killed.
 `
 
 var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164"}

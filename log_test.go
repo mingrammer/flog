@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/bouk/monkey"
+	"bou.ke/monkey"
 )
 
 var stopped = time.Date(2018, 04, 22, 9, 30, 0, 0, time.UTC)

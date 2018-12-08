@@ -1,7 +1,7 @@
 module github.com/mingrammer/flog
 
 require (
-	github.com/bouk/monkey v1.0.0
+	bou.ke/monkey v1.0.1
 	github.com/brianvoe/gofakeit v3.11.5+incompatible
 	github.com/davecgh/go-spew v1.1.0 // indirect
 	github.com/fatih/color v1.6.0 // indirect

@@ -5,6 +5,10 @@ go:
   - "1.10"
   - "master"
 
+os:
+  - linux
+  - osx
+
 before_install:
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
   - dep ensure

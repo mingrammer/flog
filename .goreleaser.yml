@@ -39,7 +39,6 @@ brew:
   commit_author:
     name: mingrammer
     email: mingrammer@gmail.com
-  folder: formula
   homepage: https://github.com/mingrammer/flog
   description: "A fake log generator for common log formats"
   install: bin.install "flog"

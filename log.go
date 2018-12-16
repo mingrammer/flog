@@ -19,13 +19,13 @@ const (
 )
 
 // NewApacheCommonLog creates a log string with apache common log format
-func NewApacheCommonLog(delta time.Duration) string {
+func NewApacheCommonLog(t time.Time) string {
 	return fmt.Sprintf(
 		ApacheCommonLog,
 		gofakeit.IPv4Address(),
 		gofakeit.Username(),
 		gofakeit.Number(0, 1000),
-		time.Now().Add(delta).Format(time.RFC3339),
+		t.Format(time.RFC3339),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
 		gofakeit.StatusCode(),
@@ -34,13 +34,13 @@ func NewApacheCommonLog(delta time.Duration) string {
 }
 
 // NewApacheCombinedLog creates a log string with apache combined log format
-func NewApacheCombinedLog(delta time.Duration) string {
+func NewApacheCombinedLog(t time.Time) string {
 	return fmt.Sprintf(
 		ApacheCombinedLog,
 		gofakeit.IPv4Address(),
 		gofakeit.Username(),
 		gofakeit.Number(1, 1000),
-		time.Now().Add(delta).Format(time.RFC3339),
+		t.Format(time.RFC3339),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
 		gofakeit.StatusCode(),
@@ -51,10 +51,10 @@ func NewApacheCombinedLog(delta time.Duration) string {
 }
 
 // NewApacheErrorLog creates a log string with apache error log format
-func NewApacheErrorLog(delta time.Duration) string {
+func NewApacheErrorLog(t time.Time) string {
 	return fmt.Sprintf(
 		ApacheErrorLog,
-		time.Now().Add(delta).Format(time.RFC3339),
+		t.Format(time.RFC3339),
 		gofakeit.Word(),
 		gofakeit.LogLevel("apache"),
 		gofakeit.Number(1, 10000),
@@ -65,11 +65,11 @@ func NewApacheErrorLog(delta time.Duration) string {
 }
 
 // NewRFC3164Log creates a log string with syslog (RFC3164) format
-func NewRFC3164Log(delta time.Duration) string {
+func NewRFC3164Log(t time.Time) string {
 	return fmt.Sprintf(
 		RFC3164Log,
 		gofakeit.Number(0, 191),
-		time.Now().Add(delta).Format(RFC3164),
+		t.Format(RFC3164),
 		gofakeit.Username(),
 		gofakeit.BuzzWord(),
 		gofakeit.Number(1, 10000),

@@ -22,7 +22,8 @@ Options:
   -n, --number integer     number of lines to generate.
   -b, --bytes integer      size of logs to generate (in bytes).
                            "bytes" will be ignored when "number" is set.
-  -s, --sleep numeric      sleep interval time between lines (in seconds). It does not actually sleep every log generation.
+  -s, --sleep numeric      creation time interval for each log (in seconds). It does not actually sleep.
+  -d, --delay numeric      delay log generation speed (in seconds).
   -p, --split-by integer   set the maximum number of lines or maximum size in bytes of a log file.
                            with "number" option, the logs will be split whenever the maximum number of lines is reached.
                            with "byte" option, the logs will be split whenever the maximum size in bytes is reached.
@@ -41,6 +42,7 @@ type Option struct {
 	Number    int
 	Bytes     int
 	Sleep     float64
+	Delay     float64
 	SplitBy   int
 	Overwrite bool
 	Forever   bool
@@ -71,6 +73,7 @@ func defaultOptions() *Option {
 		Number:    1000,
 		Bytes:     0,
 		Sleep:     0.0,
+		Delay:     0.0,
 		SplitBy:   0,
 		Overwrite: false,
 		Forever:   false,
@@ -117,6 +120,14 @@ func ParseSleep(sleep float64) (float64, error) {
 	return sleep, nil
 }
 
+// ParseDelay validates the given sleep
+func ParseDelay(delay float64) (float64, error) {
+	if delay < 0 {
+		return 0.0, errors.New("delay can not be negative")
+	}
+	return delay, nil
+}
+
 // ParseSplitBy validates the given split-by
 func ParseSplitBy(splitBy int) (int, error) {
 	if splitBy < 0 {
@@ -138,7 +149,8 @@ func ParseOptions() *Option {
 	logType := pflag.StringP("type", "t", opts.Type, "Log output type")
 	number := pflag.IntP("number", "n", opts.Number, "Number of lines to generate")
 	bytes := pflag.IntP("bytes", "b", opts.Bytes, "Size of logs to generate. (in bytes)")
-	sleep := pflag.Float64P("sleep", "s", opts.Sleep, "Sleep interval time between lines. (in seconds)")
+	sleep := pflag.Float64P("sleep", "s", opts.Sleep, "Creation time interval for each log (in seconds)")
+	delay := pflag.Float64P("delay", "d", opts.Delay, "Delay log generation speed (in seconds)")
 	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Set the maximum number of lines or maximum size in bytes of a log file")
 	overwrite := pflag.BoolP("overwrite", "w", false, "Overwrite the existing log files")
 	forever := pflag.BoolP("loop", "l", false, "Loop output forever until killed")
@@ -166,6 +178,9 @@ func ParseOptions() *Option {
 		errorExit(err)
 	}
 	if opts.Sleep, err = ParseSleep(*sleep); err != nil {
+		errorExit(err)
+	}
+	if opts.Delay, err = ParseDelay(*delay); err != nil {
 		errorExit(err)
 	}
 	if opts.SplitBy, err = ParseSplitBy(*splitBy); err != nil {

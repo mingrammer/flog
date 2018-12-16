@@ -58,6 +58,22 @@ func TestParseSleep(t *testing.T) {
 	a.Error(err, "there should be an error when negative is given")
 }
 
+func TestParseDelay(t *testing.T) {
+	a := assert.New(t)
+
+	delay, err := ParseDelay(10)
+	a.Equal(10.0, delay, "delay should be 10")
+	a.NoError(err, "there should be no error")
+
+	delay, err = ParseDelay(5.5)
+	a.Equal(5.5, delay, "delay should be 5.5")
+	a.NoError(err, "there should be no error")
+
+	delay, err = ParseDelay(-10)
+	a.Equal(0.0, delay, "delay should be 0 when negative is given")
+	a.Error(err, "there should be an error when negative is given")
+}
+
 func TestParseSplitBy(t *testing.T) {
 	a := assert.New(t)
 

@@ -53,3 +53,14 @@ func ExampleNewRFC3164Log() {
 	fmt.Println(NewRFC3164Log(created))
 	// Output: <24>Apr 22 09:30:00 Moen8727 concept[3160]: If we back up the program, we can get to the SSL sensor through the redundant SAS program!
 }
+
+func ExampleNewRFC5424Log() {
+	rand.Seed(11)
+
+	monkey.Patch(time.Now, func() time.Time { return stopped })
+	defer monkey.Unpatch(time.Now)
+
+	created := time.Now()
+	fmt.Println(NewRFC5424Log(created))
+	// Output: <24>3 2018-04-22T09:30:00.000Z futurefunctionalities.biz info-mediaries 9030 ID160 - If we back up the program, we can get to the SSL sensor through the redundant SAS program!
+}

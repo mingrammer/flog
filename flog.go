@@ -122,6 +122,8 @@ func NewLog(format string, t time.Time) string {
 		return NewApacheErrorLog(t)
 	case "rfc3164":
 		return NewRFC3164Log(t)
+	case "rfc5424":
+		return NewRFC5424Log(t)
 	default:
 		return ""
 	}

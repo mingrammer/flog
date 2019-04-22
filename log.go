@@ -16,6 +16,8 @@ const (
 	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s"
 	// RFC3164Log : <priority>{timestamp} {hostname} {application}[{pid}]: {message}
 	RFC3164Log = "<%d>%s %s %s[%d]: %s"
+	// RFC5424Log : <priority>{version} {iso-timestamp} {hostname} {application} {pid} {message-id} {structured-data} {message}
+	RFC5424Log = "<%d>%d %s %s %s %d ID%d %s %s"
 )
 
 // NewApacheCommonLog creates a log string with apache common log format
@@ -73,6 +75,22 @@ func NewRFC3164Log(t time.Time) string {
 		gofakeit.Username(),
 		gofakeit.BuzzWord(),
 		gofakeit.Number(1, 10000),
+		gofakeit.HackerPhrase(),
+	)
+}
+
+// NewRFC5424Log creates a log string with syslog (RFC5424) format
+func NewRFC5424Log(t time.Time) string {
+	return fmt.Sprintf(
+		RFC5424Log,
+		gofakeit.Number(0, 191),
+		gofakeit.Number(1, 3),
+		t.Format(RFC5424),
+		gofakeit.DomainName(),
+		gofakeit.BuzzWord(),
+		gofakeit.Number(1, 10000),
+		gofakeit.Number(1, 1000),
+		"-", // TODO: structured data
 		gofakeit.HackerPhrase(),
 	)
 }

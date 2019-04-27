@@ -1,6 +1,11 @@
-*.md
 .git
 .idea
-vendor
+.vscode
+.gitignore
+.dockerignore
+.goreleaser.yml
+.travis.yml
+*.md
 dist
 formula
+Dockerfile

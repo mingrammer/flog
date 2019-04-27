@@ -8,4 +8,5 @@
 *.md
 dist
 formula
+vendor
 Dockerfile

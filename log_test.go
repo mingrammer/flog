@@ -51,7 +51,7 @@ func ExampleNewRFC3164Log() {
 
 	created := time.Now()
 	fmt.Println(NewRFC3164Log(created))
-	// Output: <24>Apr 22 09:30:00 moen3645 qui[5385]: Copying the protocol won't do anything, we need to copy the redundant SAS program!
+	// Output: <24>Apr 22 09:30:00 moen8727 quo[3160]: If we back up the program, we can get to the SSL sensor through the redundant SAS program!
 }
 
 func ExampleNewRFC5424Log() {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/brianvoe/gofakeit"
@@ -70,7 +71,7 @@ func NewRFC3164Log(t time.Time) string {
 		RFC3164Log,
 		gofakeit.Number(0, 191),
 		t.Format(RFC3164),
-		RandAuthUserID(),
+		strings.ToLower(gofakeit.Username()),
 		gofakeit.Word(),
 		gofakeit.Number(1, 10000),
 		gofakeit.HackerPhrase(),

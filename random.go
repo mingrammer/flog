@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math/rand"
 	"strings"
 
 	"github.com/brianvoe/gofakeit"
@@ -16,4 +17,10 @@ func RandResourceURI() string {
 	}
 	url += "/" + strings.ToLower(strings.Join(slug, "/"))
 	return url
+}
+
+// RandAuthUserID generates a random auth user id
+func RandAuthUserID() string {
+	candidates := []string{"-", strings.ToLower(gofakeit.Username())}
+	return candidates[rand.Intn(2)]
 }

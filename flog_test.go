@@ -24,11 +24,11 @@ func ExampleNewLog() {
 	fmt.Println(NewLog("rfc5424", created))
 	fmt.Println(NewLog("unknown", created))
 	// Output:
-	// 222.83.191.222 - Kozey7157 697 [2018-04-22T09:30:00Z] "DELETE /innovate/next-generation" 302 24570
-	// 174.144.199.149 - Mosciski7760 386 [2018-04-22T09:30:00Z] "GET /networks/revolutionary" 204 70360 "https://www.directeyeballs.org/streamline" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_7) AppleWebKit/5312 (KHTML, like Gecko) Chrome/37.0.821.0 Mobile Safari/5312"
-	// [2018-04-22T09:30:00Z] [tempore:warn] [pid 7401:tid 4039] [client: 184.155.77.136] Try to synthesize the SMS capacitor, maybe it will compress the online program!
-	// <25>Apr 22 09:30:00 Fay5424 Monitored[5455]: Try to reboot the SMS bandwidth, maybe it will synthesize the mobile transmitter!
-	// <118>2 2018-04-22T09:30:00.000Z legacyb2b.com toolset 8605 ID854 - Try to synthesize the JBOD matrix, maybe it will calculate the 1080p application!
+	// 222.83.191.222 - - [22/04/2018:09:30:00 +0000] "DELETE /innovate/next-generation" 302 24570
+	// 174.144.199.149 - mosciski2042 [22/04/2018:09:30:00 +0000] "PUT /revolutionary" 204 70360 "https://www.directeyeballs.org/streamline" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_7) AppleWebKit/5312 (KHTML, like Gecko) Chrome/37.0.821.0 Mobile Safari/5312"
+	// [Sun Apr 22 09:30:00 2018] [tempore:warn] [pid 7401:tid 4039] [client: 184.155.77.136] Try to synthesize the SMS capacitor, maybe it will compress the online program!
+	// <25>Apr 22 09:30:00 fay2452 iste[9915]: Indexing the bandwidth won't do anything, we need to synthesize the mobile XSS capacitor!
+	// <94>2 2018-04-22T09:30:00.000Z productinitiatives.org quibusdam 2854 ID179 - Indexing the matrix won't do anything, we need to calculate the 1080p AGP firewall!
 	//
 }
 

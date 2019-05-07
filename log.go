@@ -9,9 +9,9 @@ import (
 
 const (
 	// ApacheCommonLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
-	ApacheCommonLog = "%s - %s %d [%s] \"%s %s\" %d %d"
+	ApacheCommonLog = "%s - %s [%s] \"%s %s\" %d %d"
 	// ApacheCombinedLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes} "{referrer}" "{agent}"
-	ApacheCombinedLog = "%s - %s %d [%s] \"%s %s\" %d %d \"%s\" \"%s\""
+	ApacheCombinedLog = "%s - %s [%s] \"%s %s\" %d %d \"%s\" \"%s\""
 	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
 	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s"
 	// RFC3164Log : <priority>{timestamp} {hostname} {application}[{pid}]: {message}
@@ -25,9 +25,8 @@ func NewApacheCommonLog(t time.Time) string {
 	return fmt.Sprintf(
 		ApacheCommonLog,
 		gofakeit.IPv4Address(),
-		gofakeit.Username(),
-		gofakeit.Number(0, 1000),
-		t.Format(time.RFC3339),
+		RandAuthUserID(),
+		t.Format(Apache),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
 		gofakeit.StatusCode(),
@@ -40,9 +39,8 @@ func NewApacheCombinedLog(t time.Time) string {
 	return fmt.Sprintf(
 		ApacheCombinedLog,
 		gofakeit.IPv4Address(),
-		gofakeit.Username(),
-		gofakeit.Number(1, 1000),
-		t.Format(time.RFC3339),
+		RandAuthUserID(),
+		t.Format(Apache),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
 		gofakeit.StatusCode(),
@@ -56,7 +54,7 @@ func NewApacheCombinedLog(t time.Time) string {
 func NewApacheErrorLog(t time.Time) string {
 	return fmt.Sprintf(
 		ApacheErrorLog,
-		t.Format(time.RFC3339),
+		t.Format(ApacheError),
 		gofakeit.Word(),
 		gofakeit.LogLevel("apache"),
 		gofakeit.Number(1, 10000),
@@ -72,8 +70,8 @@ func NewRFC3164Log(t time.Time) string {
 		RFC3164Log,
 		gofakeit.Number(0, 191),
 		t.Format(RFC3164),
-		gofakeit.Username(),
-		gofakeit.BuzzWord(),
+		RandAuthUserID(),
+		gofakeit.Word(),
 		gofakeit.Number(1, 10000),
 		gofakeit.HackerPhrase(),
 	)
@@ -87,7 +85,7 @@ func NewRFC5424Log(t time.Time) string {
 		gofakeit.Number(1, 3),
 		t.Format(RFC5424),
 		gofakeit.DomainName(),
-		gofakeit.BuzzWord(),
+		gofakeit.Word(),
 		gofakeit.Number(1, 10000),
 		gofakeit.Number(1, 1000),
 		"-", // TODO: structured data

@@ -54,7 +54,7 @@ There are useful options. (`flog --help`)
 
 ```console
 Options:
-  -f, --format string      choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164") (default "apache_common")
+  -f, --format string      choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164"|"rfc5424") (default "apache_common")
   -o, --output string      output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        log output type. ("stdout"|"log"|"gz") (default "stdout")
   -n, --number integer     number of lines to generate.
@@ -91,7 +91,7 @@ flog -f rfc3164 -l
 * [X] Completely random log generator
 * [ ] Contextual random log generator
 * [ ] Statistical random log generator
-* [x] Support `apache common`, `apache combined`, `apache error` and `rfc3164` log format
+* [x] Support `apache common`, `apache combined`, `apache error`, `rfc3164` and `rfc5424` log formats
 * [ ] Support some other syslog formats
 * [x] Support stdout, file and gzip type of logging
 

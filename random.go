@@ -2,6 +2,7 @@ package main
 
 import (
 	"math/rand"
+	net_url "net/url"
 	"strings"
 
 	"github.com/brianvoe/gofakeit"
@@ -13,7 +14,7 @@ func RandResourceURI() string {
 	num := gofakeit.Number(1, 4)
 	slug := make([]string, num)
 	for i := 0; i < num; i++ {
-		slug[i] = gofakeit.BS()
+		slug[i] = net_url.QueryEscape(gofakeit.BS())
 	}
 	url += "/" + strings.ToLower(strings.Join(slug, "/"))
 	return url

@@ -64,3 +64,14 @@ func ExampleNewRFC5424Log() {
 	fmt.Println(NewRFC5424Log(created))
 	// Output: <24>3 2018-04-22T09:30:00.000Z futurefunctionalities.biz nisi 9030 ID160 - If we back up the program, we can get to the SSL sensor through the redundant SAS program!
 }
+
+func ExampleNewCommonLogfileFormat() {
+	rand.Seed(11)
+
+	monkey.Patch(time.Now, func() time.Time { return stopped })
+	defer monkey.Unpatch(time.Now)
+
+	created := time.Now()
+	fmt.Println(NewCommonLogfileFormat(created))
+	// Output: 222.83.191.222 - - [22/Apr/2018:09:30:00 +0000] "DELETE /innovate/next-generation" 302 24570
+}

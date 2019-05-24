@@ -31,7 +31,7 @@ Options:
   -l, --loop               loop output forever until killed.
 `
 
-var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164", "rfc5424"}
+var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164", "rfc5424", "common_logfile_format"}
 var validTypes = []string{"stdout", "log", "gz"}
 
 // Option defines log generator options

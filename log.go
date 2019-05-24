@@ -93,3 +93,17 @@ func NewRFC5424Log(t time.Time) string {
 		gofakeit.HackerPhrase(),
 	)
 }
+
+// NewApacheCommonLog creates a log string with apache common log format
+func NewCommonLogfileFormat(t time.Time) string {
+	return fmt.Sprintf(
+		ApacheCommonLog,
+		gofakeit.IPv4Address(),
+		RandAuthUserID(),
+		t.Format(CommonLogfile),
+		gofakeit.HTTPMethod(),
+		RandResourceURI(),
+		gofakeit.StatusCode(),
+		gofakeit.Number(0, 30000),
+	)
+}

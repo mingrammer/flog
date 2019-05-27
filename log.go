@@ -19,8 +19,8 @@ const (
 	RFC3164Log = "<%d>%s %s %s[%d]: %s"
 	// RFC5424Log : <priority>{version} {iso-timestamp} {hostname} {application} {pid} {message-id} {structured-data} {message}
 	RFC5424Log = "<%d>%d %s %s %s %d ID%d %s %s"
-	// CommonLogfileFormat : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
-	CommonLogfileFormat = "%s - %s [%s] \"%s %s HTTP/1.0\" %d %d"
+	// CommonLogFormat : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
+	CommonLogFormat = "%s - %s [%s] \"%s %s HTTP/1.0\" %d %d"
 )
 
 // NewApacheCommonLog creates a log string with apache common log format
@@ -96,13 +96,13 @@ func NewRFC5424Log(t time.Time) string {
 	)
 }
 
-// NewCommonLogfileFormat creates a log string with common logfile format
-func NewCommonLogfileFormat(t time.Time) string {
+// NewCommonLogFormat creates a log string with common log format
+func NewCommonLogFormat(t time.Time) string {
 	return fmt.Sprintf(
-		CommonLogfileFormat,
+		CommonLogFormat,
 		gofakeit.IPv4Address(),
 		RandAuthUserID(),
-		t.Format(CommonLogfile),
+		t.Format(CommonLog),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
 		gofakeit.StatusCode(),

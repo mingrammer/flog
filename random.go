@@ -2,7 +2,7 @@ package main
 
 import (
 	"math/rand"
-	net_url "net/url"
+	"net/url"
 	"strings"
 
 	"github.com/brianvoe/gofakeit"
@@ -10,14 +10,13 @@ import (
 
 // RandResourceURI generates a random resource URI
 func RandResourceURI() string {
-	var url string
+	var uri string
 	num := gofakeit.Number(1, 4)
-	slug := make([]string, num)
 	for i := 0; i < num; i++ {
-		slug[i] = net_url.QueryEscape(gofakeit.BS())
+		uri += "/" + url.QueryEscape(gofakeit.BS())
 	}
-	url += "/" + strings.ToLower(strings.Join(slug, "/"))
-	return url
+	uri = strings.ToLower(uri)
+	return uri
 }
 
 // RandAuthUserID generates a random auth user id

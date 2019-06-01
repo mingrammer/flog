@@ -24,3 +24,9 @@ func RandAuthUserID() string {
 	candidates := []string{"-", strings.ToLower(gofakeit.Username())}
 	return candidates[rand.Intn(2)]
 }
+
+// RandHTTPVersion returns a random http version
+func RandHTTPVersion() string {
+	versions := []string{"HTTP/1.0", "HTTP/1.1", "HTTP/2.0"}
+	return versions[rand.Intn(3)]
+}

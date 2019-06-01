@@ -18,7 +18,7 @@ func ExampleNewApacheCommonLog() {
 
 	created := time.Now()
 	fmt.Println(NewApacheCommonLog(created))
-	// Output: 222.83.191.222 - - [22/04/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.0" 302 24570
+	// Output: 222.83.191.222 - - [22/04/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.1" 406 7610
 }
 
 func ExampleNewApacheCombinedLog() {
@@ -29,7 +29,7 @@ func ExampleNewApacheCombinedLog() {
 
 	created := time.Now()
 	fmt.Println(NewApacheCombinedLog(created))
-	// Output: 222.83.191.222 - - [22/04/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.0" 302 81317 "https://www.forwardholistic.biz/mission-critical/synergize/morph/sticky" "Mozilla/5.0 (Windows NT 5.01) AppleWebKit/5320 (KHTML, like Gecko) Chrome/40.0.875.0 Mobile Safari/5320"
+	// Output: 222.83.191.222 - - [22/04/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.1" 406 97484 "https://www.humanscalable.io/synergize/morph/sticky" "Mozilla/5.0 (Windows NT 5.01) AppleWebKit/5320 (KHTML, like Gecko) Chrome/40.0.875.0 Mobile Safari/5320"
 }
 
 func ExampleNewApacheErrorLog() {
@@ -73,5 +73,5 @@ func ExampleNewCommonLogFormat() {
 
 	created := time.Now()
 	fmt.Println(NewCommonLogFormat(created))
-	// Output: 222.83.191.222 - - [22/Apr/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.0" 302 24570
+	// Output: 222.83.191.222 - - [22/Apr/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.1" 406 7610
 }

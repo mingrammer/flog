@@ -25,12 +25,12 @@ func ExampleNewLog() {
 	fmt.Println(NewLog("common_log", created))
 	fmt.Println(NewLog("unknown", created))
 	// Output:
-	// 222.83.191.222 - - [22/04/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.0" 302 24570
-	// 174.144.199.149 - mosciski7760 [22/04/2018:09:30:00 +0000] "GET /networks/revolutionary HTTP/1.0" 204 70360 "https://www.directeyeballs.org/streamline" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_7) AppleWebKit/5312 (KHTML, like Gecko) Chrome/37.0.821.0 Mobile Safari/5312"
-	// [Sun Apr 22 09:30:00 2018] [tempore:warn] [pid 7401:tid 4039] [client: 184.155.77.136] Try to synthesize the SMS capacitor, maybe it will compress the online program!
-	// <25>Apr 22 09:30:00 fay5424 ipsam[5455]: Try to reboot the SMS bandwidth, maybe it will synthesize the mobile transmitter!
-	// <118>2 2018-04-22T09:30:00.000Z legacyb2b.com natus 8605 ID854 - Try to synthesize the JBOD matrix, maybe it will calculate the 1080p application!
-	// 34.205.100.144 - - [22/Apr/2018:09:30:00 +0000] "DELETE /empower/revolutionary/rich HTTP/1.0" 416 19950
+	// 222.83.191.222 - - [22/04/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.1" 406 7610
+	// 144.199.149.125 - waelchi7603 [22/04/2018:09:30:00 +0000] "PUT /revolutionary HTTP/1.1" 301 8089 "https://www.futureaggregate.io/users" "Mozilla/5.0 (Macintosh; PPC Mac OS X 10_6_5 rv:4.0; en-US) AppleWebKit/536.38.2 (KHTML, like Gecko) Version/6.0 Safari/536.38.2"
+	// [Sun Apr 22 09:30:00 2018] [eaque:error] [pid 3748:tid 2783] [client: 54.26.161.221] We need to transmit the open-source JSON capacitor!
+	// <15>Apr 22 09:30:00 parisian2785 eius[350]: You can't quantify the capacitor without connecting the virtual XSS transmitter!
+	// <12>2 2018-04-22T09:30:00.000Z internalmagnetic.io necessitatibus 3954 ID418 - Try to navigate the AGP feed, maybe it will quantify the optical monitor!
+	// 7.101.102.40 - dibbert8018 [22/Apr/2018:09:30:00 +0000] "PATCH /empower/leading-edge/markets/whiteboard HTTP/1.0" 502 21224
 	//
 }
 

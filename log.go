@@ -9,18 +9,18 @@ import (
 )
 
 const (
-	// ApacheCommonLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
-	ApacheCommonLog = "%s - %s [%s] \"%s %s HTTP/1.0\" %d %d"
-	// ApacheCombinedLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes} "{referrer}" "{agent}"
-	ApacheCombinedLog = "%s - %s [%s] \"%s %s HTTP/1.0\" %d %d \"%s\" \"%s\""
+	// ApacheCommonLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} {protocol}" {response-code} {bytes}
+	ApacheCommonLog = "%s - %s [%s] \"%s %s %s\" %d %d"
+	// ApacheCombinedLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} {protocol}" {response-code} {bytes} "{referrer}" "{agent}"
+	ApacheCombinedLog = "%s - %s [%s] \"%s %s %s\" %d %d \"%s\" \"%s\""
 	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
 	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s"
 	// RFC3164Log : <priority>{timestamp} {hostname} {application}[{pid}]: {message}
 	RFC3164Log = "<%d>%s %s %s[%d]: %s"
 	// RFC5424Log : <priority>{version} {iso-timestamp} {hostname} {application} {pid} {message-id} {structured-data} {message}
 	RFC5424Log = "<%d>%d %s %s %s %d ID%d %s %s"
-	// CommonLogFormat : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} HTTP/1.0" {response-code} {bytes}
-	CommonLogFormat = "%s - %s [%s] \"%s %s HTTP/1.0\" %d %d"
+	// CommonLogFormat : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} {protocol}" {response-code} {bytes}
+	CommonLogFormat = "%s - %s [%s] \"%s %s %s\" %d %d"
 )
 
 // NewApacheCommonLog creates a log string with apache common log format
@@ -32,6 +32,7 @@ func NewApacheCommonLog(t time.Time) string {
 		t.Format(Apache),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
+		RandHTTPVersion(),
 		gofakeit.StatusCode(),
 		gofakeit.Number(0, 30000),
 	)
@@ -46,6 +47,7 @@ func NewApacheCombinedLog(t time.Time) string {
 		t.Format(Apache),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
+		RandHTTPVersion(),
 		gofakeit.StatusCode(),
 		gofakeit.Number(30, 100000),
 		gofakeit.URL(),
@@ -105,6 +107,7 @@ func NewCommonLogFormat(t time.Time) string {
 		t.Format(CommonLog),
 		gofakeit.HTTPMethod(),
 		RandResourceURI(),
+		RandHTTPVersion(),
 		gofakeit.StatusCode(),
 		gofakeit.Number(0, 30000),
 	)

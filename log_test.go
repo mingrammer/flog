@@ -40,7 +40,7 @@ func ExampleNewApacheErrorLog() {
 
 	created := time.Now()
 	fmt.Println(NewApacheErrorLog(created))
-	// Output: [Sun Apr 22 09:30:00 2018] [quia:crit] [pid 4214:tid 6037] [client: 90.151.9.107] If we back up the program, we can get to the SSL sensor through the redundant SAS program!
+	// Output: [Sun Apr 22 09:30:00 2018] [quia:crit] [pid 4214:tid 6037] [client 90.151.9.107:14075] Copying the protocol won't do anything, we need to copy the redundant SAS program!
 }
 
 func ExampleNewRFC3164Log() {

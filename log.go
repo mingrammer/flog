@@ -13,8 +13,8 @@ const (
 	ApacheCommonLog = "%s - %s [%s] \"%s %s %s\" %d %d"
 	// ApacheCombinedLog : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} {protocol}" {response-code} {bytes} "{referrer}" "{agent}"
 	ApacheCombinedLog = "%s - %s [%s] \"%s %s %s\" %d %d \"%s\" \"%s\""
-	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client: %{client}] %{message}
-	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client: %s] %s"
+	// ApacheErrorLog : [{timestamp}] [{module}:{severity}] [pid {pid}:tid {thread-id}] [client %{client}:{port}] %{message}
+	ApacheErrorLog = "[%s] [%s:%s] [pid %d:tid %d] [client %s:%d] %s"
 	// RFC3164Log : <priority>{timestamp} {hostname} {application}[{pid}]: {message}
 	RFC3164Log = "<%d>%s %s %s[%d]: %s"
 	// RFC5424Log : <priority>{version} {iso-timestamp} {hostname} {application} {pid} {message-id} {structured-data} {message}
@@ -65,6 +65,7 @@ func NewApacheErrorLog(t time.Time) string {
 		gofakeit.Number(1, 10000),
 		gofakeit.Number(1, 10000),
 		gofakeit.IPv4Address(),
+		gofakeit.Number(1, 65535),
 		gofakeit.HackerPhrase(),
 	)
 }

@@ -26,7 +26,7 @@ It is useful for testing some tasks which require log data like amazon kinesis l
 ### Using go get
 
 ```bash
-go get github.com/mingrammer/flog
+go get -u github.com/mingrammer/flog
 ```
 
 It is recommended to also run `dep ensure` to make sure that the dependencies are in the correct versions.

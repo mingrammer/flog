@@ -21,6 +21,8 @@ const (
 	RFC5424Log = "<%d>%d %s %s %s %d ID%d %s %s"
 	// CommonLogFormat : {host} {user-identifier} {auth-user-id} [{datetime}] "{method} {request} {protocol}" {response-code} {bytes}
 	CommonLogFormat = "%s - %s [%s] \"%s %s %s\" %d %d"
+	// JsonLogFormat : {"host": "{host}", "user-identifier": "{user-identifier}", "datetime": "{datetime}", "method": "{method}", "request": "{request}", "protocol": "{protocol}", "response-code", {response-code}, "bytes": {bytes}}
+	JsonLogFormat = `{"host":"%s", "user-identifier":"%s", "datetime":"%s", "method": "%s", "request": "%s", "protocol":"%s", "response-code":%d, "bytes":%d}`
 )
 
 // NewApacheCommonLog creates a log string with apache common log format
@@ -103,6 +105,22 @@ func NewRFC5424Log(t time.Time) string {
 func NewCommonLogFormat(t time.Time) string {
 	return fmt.Sprintf(
 		CommonLogFormat,
+		gofakeit.IPv4Address(),
+		RandAuthUserID(),
+		t.Format(CommonLog),
+		gofakeit.HTTPMethod(),
+		RandResourceURI(),
+		RandHTTPVersion(),
+		gofakeit.StatusCode(),
+		gofakeit.Number(0, 30000),
+	)
+}
+
+
+// NewJsonLogFormat creates a log string with json log format
+func NewJsonLogFormat(t time.Time) string {
+	return fmt.Sprintf(
+		JsonLogFormat,
 		gofakeit.IPv4Address(),
 		RandAuthUserID(),
 		t.Format(CommonLog),

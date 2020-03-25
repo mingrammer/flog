@@ -127,7 +127,7 @@ func NewLog(format string, t time.Time) string {
 	case "common_log":
 		return NewCommonLogFormat(t)
 	case "json":
-		return NewJsonLogFormat(t)
+		return NewJSONLogFormat(t)
 	default:
 		return ""
 	}

@@ -33,7 +33,7 @@ func ExampleNewLog() {
 	// <23>3 2018-04-22T09:30:00.000Z humaniterate.io iusto 544 ID177 - Use the optical RAM hard drive, then you can program the auxiliary feed!
 	// 195.44.200.155 - kihn6187 [22/Apr/2018:09:30:00 +0000] "GET /revolutionary/e-markets/holistic/syndicate HTTP/2.0" 404 14503
 	//
-	// {"host":"13.108.182.26", "user-identifier":"bailey7205", "datetime":"22/Apr/2018:09:30:00 +0000", "method": "GET", "request": "/out-of-the-box/architectures/embrace", "protocol":"HTTP/1.0", "response-code":200, "bytes":5921}
+	// {"host":"13.108.182.26", "user-identifier":"bailey7205", "datetime":"22/Apr/2018:09:30:00 +0000", "method": "GET", "request": "/out-of-the-box/architectures/embrace", "protocol":"HTTP/1.0", "status":200, "bytes":5921, "referrer": "http://www.dynamicexperiences.io/robust"}
 }
 
 func TestNewSplitFileName(t *testing.T) {

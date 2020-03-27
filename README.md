@@ -54,7 +54,7 @@ There are useful options. (`flog --help`)
 
 ```console
 Options:
-  -f, --format string      choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164"|"rfc5424"|"common_log") (default "apache_common")
+  -f, --format string      choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164"|"rfc5424"|"common_log"|"json") (default "apache_common")
   -o, --output string      output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        log output type. ("stdout"|"log"|"gz") (default "stdout")
   -n, --number integer     number of lines to generate.

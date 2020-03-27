@@ -75,3 +75,14 @@ func ExampleNewCommonLogFormat() {
 	fmt.Println(NewCommonLogFormat(created))
 	// Output: 222.83.191.222 - - [22/Apr/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.1" 406 7610
 }
+
+func ExampleNewJSONLogFormat() {
+	rand.Seed(11)
+
+	monkey.Patch(time.Now, func() time.Time { return stopped })
+	defer monkey.Unpatch(time.Now)
+
+	created := time.Now()
+	fmt.Println(NewJSONLogFormat(created))
+	// Output: {"host":"222.83.191.222", "user-identifier":"-", "datetime":"22/Apr/2018:09:30:00 +0000", "method": "DELETE", "request": "/innovate/next-generation", "protocol":"HTTP/1.1", "status":406, "bytes":7610, "referer": "https://www.humanscalable.io/synergize/morph/sticky"}
+}

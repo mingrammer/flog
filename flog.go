@@ -126,6 +126,8 @@ func NewLog(format string, t time.Time) string {
 		return NewRFC5424Log(t)
 	case "common_log":
 		return NewCommonLogFormat(t)
+	case "json":
+		return NewJSONLogFormat(t)
 	default:
 		return ""
 	}

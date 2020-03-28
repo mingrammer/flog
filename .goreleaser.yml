@@ -18,12 +18,12 @@ changelog:
     - Merge pull request
     - Merge branch
 
-archive:
-  format: tar.gz
-  name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
-  files:
-    - LICENSE
-    - README.md
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    files:
+      - LICENSE
+      - README.md
 
 release:
   github:
@@ -31,14 +31,14 @@ release:
     name: flog
   name_template: '{{.Tag}}'
 
-brew:
-  name: flog
-  github:
-    owner: mingrammer
-    name: homebrew-flog
-  commit_author:
-    name: mingrammer
-    email: mingrammer@gmail.com
-  homepage: https://github.com/mingrammer/flog
-  description: "A fake log generator for common log formats"
-  install: bin.install "flog"
+brews:
+  - name: flog
+    github:
+      owner: mingrammer
+      name: homebrew-flog
+    commit_author:
+      name: mingrammer
+      email: mingrammer@gmail.com
+    homepage: https://github.com/mingrammer/flog
+    description: "A fake log generator for common log formats"
+    install: bin.install "flog"

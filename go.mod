@@ -1,5 +1,7 @@
 module github.com/mingrammer/flog
 
+go 1.14
+
 require (
 	bou.ke/monkey v1.0.1
 	github.com/brianvoe/gofakeit v3.11.5+incompatible

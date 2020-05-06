@@ -47,7 +47,7 @@ Options:
   -n, --number integer     number of lines to generate.
   -b, --bytes integer      size of logs to generate (in bytes).
                            "bytes" will be ignored when "number" is set.
-  -s, --sleep numeric      creation time interval for each log (in seconds). It does not actually sleep.
+  -s, --sleep numeric      fix creation time interval for each log (in seconds). It does not actually sleep.
   -d, --delay numeric      delay log generation speed (in seconds).
   -p, --split-by integer   set the maximum number of lines or maximum size in bytes of a log file.
                            with "number" option, the logs will be split whenever the maximum number of lines is reached.

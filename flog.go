@@ -13,12 +13,20 @@ import (
 
 // Generate generates the logs with given options
 func Generate(option *Option) error {
-	splitCount := 1
-	created := time.Now()
+	var (
+		splitCount = 1
+		created    = time.Now()
 
-	delay := time.Duration(0)
+		interval time.Duration
+		delay    time.Duration
+	)
+
 	if option.Delay > 0 {
-		delay = time.Duration(option.Delay*float64(time.Second/time.Millisecond)) * time.Millisecond
+		interval = time.Duration(option.Delay * float64(time.Second))
+		delay = interval
+	}
+	if option.Sleep > 0 {
+		interval = time.Duration(option.Sleep * float64(time.Second))
 	}
 
 	logFileName := option.Output
@@ -29,21 +37,17 @@ func Generate(option *Option) error {
 
 	if option.Forever {
 		for {
-			if delay > 0 {
-				time.Sleep(delay)
-			}
+			time.Sleep(delay)
 			log := NewLog(option.Format, created)
 			writer.Write([]byte(log + "\n"))
-			created = created.Add(time.Duration(option.Sleep*float64(time.Second/time.Millisecond)) * time.Millisecond)
+			created = created.Add(interval)
 		}
 	}
 
 	if option.Bytes == 0 {
 		// Generates the logs until the certain number of lines is reached
 		for line := 0; line < option.Number; line++ {
-			if delay > 0 {
-				time.Sleep(delay)
-			}
+			time.Sleep(delay)
 			log := NewLog(option.Format, created)
 			writer.Write([]byte(log + "\n"))
 
@@ -56,15 +60,13 @@ func Generate(option *Option) error {
 
 				splitCount++
 			}
-			created = created.Add(time.Duration(option.Sleep*float64(time.Second/time.Millisecond)) * time.Millisecond)
+			created = created.Add(interval)
 		}
 	} else {
 		// Generates the logs until the certain size in bytes is reached
 		bytes := 0
 		for bytes < option.Bytes {
-			if delay > 0 {
-				time.Sleep(delay)
-			}
+			time.Sleep(delay)
 			log := NewLog(option.Format, created)
 			writer.Write([]byte(log + "\n"))
 
@@ -78,7 +80,7 @@ func Generate(option *Option) error {
 
 				splitCount++
 			}
-			created = created.Add(time.Duration(option.Sleep*float64(time.Second/time.Millisecond)) * time.Millisecond)
+			created = created.Add(interval)
 		}
 	}
 

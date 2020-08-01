@@ -22,11 +22,11 @@ func Generate(option *Option) error {
 	)
 
 	if option.Delay > 0 {
-		interval = time.Duration(option.Delay * float64(time.Second))
+		interval = option.Delay
 		delay = interval
 	}
 	if option.Sleep > 0 {
-		interval = time.Duration(option.Sleep * float64(time.Second))
+		interval = option.Sleep
 	}
 
 	logFileName := option.Output
@@ -39,7 +39,7 @@ func Generate(option *Option) error {
 		for {
 			time.Sleep(delay)
 			log := NewLog(option.Format, created)
-			writer.Write([]byte(log + "\n"))
+			_, _ = writer.Write([]byte(log + "\n"))
 			created = created.Add(interval)
 		}
 	}
@@ -49,10 +49,10 @@ func Generate(option *Option) error {
 		for line := 0; line < option.Number; line++ {
 			time.Sleep(delay)
 			log := NewLog(option.Format, created)
-			writer.Write([]byte(log + "\n"))
+			_, _ = writer.Write([]byte(log + "\n"))
 
 			if (option.Type != "stdout") && (option.SplitBy > 0) && (line > option.SplitBy*splitCount) {
-				writer.Close()
+				_ = writer.Close()
 				fmt.Println(logFileName, "is created.")
 
 				logFileName = NewSplitFileName(option.Output, splitCount)
@@ -68,11 +68,11 @@ func Generate(option *Option) error {
 		for bytes < option.Bytes {
 			time.Sleep(delay)
 			log := NewLog(option.Format, created)
-			writer.Write([]byte(log + "\n"))
+			_, _ = writer.Write([]byte(log + "\n"))
 
 			bytes += len(log)
 			if (option.Type != "stdout") && (option.SplitBy > 0) && (bytes > option.SplitBy*splitCount+1) {
-				writer.Close()
+				_ = writer.Close()
 				fmt.Println(logFileName, "is created.")
 
 				logFileName = NewSplitFileName(option.Output, splitCount)
@@ -85,7 +85,7 @@ func Generate(option *Option) error {
 	}
 
 	if option.Type != "stdout" {
-		writer.Close()
+		_ = writer.Close()
 		fmt.Println(logFileName, "is created.")
 	}
 	return nil

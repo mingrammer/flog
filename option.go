@@ -4,11 +4,14 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
+	"strings"
+	"time"
 
 	"github.com/spf13/pflag"
 )
 
-const version = "0.4.2"
+const version = "0.4.3"
 const usage = `flog is a fake log generator for common log formats
 
 Usage: flog [options]
@@ -16,14 +19,25 @@ Usage: flog [options]
 Version: %s
 
 Options:
-  -f, --format string      choose log format. ("apache_common"|"apache_combined"|"apache_error"|"rfc3164"|"rfc5424"|"json") (default "apache_common")
+  -f, --format string      log format. available formats:
+                           - apache_common (default)
+                           - apache_combined
+                           - apache_error
+                           - rfc3164
+                           - rfc5424
+                           - json
   -o, --output string      output filename. Path-like is allowed. (default "generated.log")
-  -t, --type string        log output type. ("stdout"|"log"|"gz") (default "stdout")
+  -t, --type string        log output type. available types:
+                           - stdout (default)
+                           - log
+                           - gz
   -n, --number integer     number of lines to generate.
   -b, --bytes integer      size of logs to generate (in bytes).
                            "bytes" will be ignored when "number" is set.
-  -s, --sleep numeric      fix creation time interval for each log (in seconds). It does not actually sleep.
-  -d, --delay numeric      delay log generation speed (in seconds).
+  -s, --sleep duration     fix creation time interval for each log (default unit "seconds"). It does not actually sleep.
+                           examples: 10, 20ms, 5s, 1m
+  -d, --delay duration     delay log generation speed (default unit "seconds").
+                           examples: 10, 20ms, 5s, 1m
   -p, --split-by integer   set the maximum number of lines or maximum size in bytes of a log file.
                            with "number" option, the logs will be split whenever the maximum number of lines is reached.
                            with "byte" option, the logs will be split whenever the maximum size in bytes is reached.
@@ -41,8 +55,8 @@ type Option struct {
 	Type      string
 	Number    int
 	Bytes     int
-	Sleep     float64
-	Delay     float64
+	Sleep     time.Duration
+	Delay     time.Duration
 	SplitBy   int
 	Overwrite bool
 	Forever   bool
@@ -113,19 +127,33 @@ func ParseBytes(bytes int) (int, error) {
 }
 
 // ParseSleep validates the given sleep
-func ParseSleep(sleep float64) (float64, error) {
-	if sleep < 0 {
-		return 0.0, errors.New("sleep can not be negative")
+func ParseSleep(sleepString string) (time.Duration, error) {
+	if strings.ContainsAny(sleepString, "nsuµmh") {
+		return time.ParseDuration(sleepString)
 	}
-	return sleep, nil
+	sleep, err := strconv.ParseFloat(sleepString, 64)
+	if err != nil {
+		return 0, err
+	}
+	if sleep < 0 {
+		return 0.0, errors.New("sleep time must be positive")
+	}
+	return time.Duration(sleep * float64(time.Second)), nil
 }
 
 // ParseDelay validates the given sleep
-func ParseDelay(delay float64) (float64, error) {
-	if delay < 0 {
-		return 0.0, errors.New("delay can not be negative")
+func ParseDelay(delayString string) (time.Duration, error) {
+	if strings.ContainsAny(delayString, "nsuµmh") {
+		return time.ParseDuration(delayString)
 	}
-	return delay, nil
+	delay, err := strconv.ParseFloat(delayString, 64)
+	if err != nil {
+		return 0, err
+	}
+	if delay < 0 {
+		return 0.0, errors.New("delay time must be positive")
+	}
+	return time.Duration(delay * float64(time.Second)), nil
 }
 
 // ParseSplitBy validates the given split-by
@@ -142,16 +170,16 @@ func ParseOptions() *Option {
 
 	opts := defaultOptions()
 
-	help := pflag.BoolP("help", "h", false, "Show usage")
+	help := pflag.BoolP("help", "h", false, "Show this help message")
 	version := pflag.BoolP("version", "v", false, "Show version")
 	format := pflag.StringP("format", "f", opts.Format, "Log format")
-	output := pflag.StringP("output", "o", opts.Output, "Output filename. Path-like filename is allowed")
+	output := pflag.StringP("output", "o", opts.Output, "Path-like output filename")
 	logType := pflag.StringP("type", "t", opts.Type, "Log output type")
 	number := pflag.IntP("number", "n", opts.Number, "Number of lines to generate")
 	bytes := pflag.IntP("bytes", "b", opts.Bytes, "Size of logs to generate. (in bytes)")
-	sleep := pflag.Float64P("sleep", "s", opts.Sleep, "Creation time interval for each log (in seconds)")
-	delay := pflag.Float64P("delay", "d", opts.Delay, "Delay log generation speed (in seconds)")
-	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Set the maximum number of lines or maximum size in bytes of a log file")
+	sleepString := pflag.StringP("sleep", "s", "0s", "Creation time interval (default unit: seconds)")
+	delayString := pflag.StringP("delay", "d", "0s", "Log generation speed (default unit: seconds)")
+	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Maximum number of lines or size of a log file")
 	overwrite := pflag.BoolP("overwrite", "w", false, "Overwrite the existing log files")
 	forever := pflag.BoolP("loop", "l", false, "Loop output forever until killed")
 
@@ -177,10 +205,10 @@ func ParseOptions() *Option {
 	if opts.Bytes, err = ParseBytes(*bytes); err != nil {
 		errorExit(err)
 	}
-	if opts.Sleep, err = ParseSleep(*sleep); err != nil {
+	if opts.Sleep, err = ParseSleep(*sleepString); err != nil {
 		errorExit(err)
 	}
-	if opts.Delay, err = ParseDelay(*delay); err != nil {
+	if opts.Delay, err = ParseDelay(*delayString); err != nil {
 		errorExit(err)
 	}
 	if opts.SplitBy, err = ParseSplitBy(*splitBy); err != nil {

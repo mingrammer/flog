@@ -2,6 +2,7 @@ package main
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -45,32 +46,48 @@ func TestParseBytes(t *testing.T) {
 func TestParseSleep(t *testing.T) {
 	a := assert.New(t)
 
-	sleep, err := ParseSleep(10)
-	a.Equal(10.0, sleep, "sleep should be 10")
+	sleep, err := ParseSleep("10")
+	a.Equal(10*time.Second, sleep, "sleep should be 10s")
 	a.NoError(err, "there should be no error")
 
-	sleep, err = ParseSleep(5.5)
-	a.Equal(5.5, sleep, "sleep should be 5.5")
+	sleep, err = ParseSleep("20ms")
+	a.Equal(20*time.Millisecond, sleep, "sleep should be 20ms")
 	a.NoError(err, "there should be no error")
 
-	sleep, err = ParseSleep(-10)
-	a.Equal(0.0, sleep, "sleep should be 0 when negative is given")
+	sleep, err = ParseSleep("3s")
+	a.Equal(3*time.Second, sleep, "sleep should be 3s")
+	a.NoError(err, "there should be no error")
+
+	sleep, err = ParseSleep("5.5")
+	a.Equal(time.Duration(5.5*float64(time.Second)), sleep, "sleep should be 5.5s")
+	a.NoError(err, "there should be no error")
+
+	sleep, err = ParseSleep("-10")
+	a.Equal(time.Duration(0), sleep, "sleep should be 0 when negative is given")
 	a.Error(err, "there should be an error when negative is given")
 }
 
 func TestParseDelay(t *testing.T) {
 	a := assert.New(t)
 
-	delay, err := ParseDelay(10)
-	a.Equal(10.0, delay, "delay should be 10")
+	delay, err := ParseDelay("10")
+	a.Equal(10*time.Second, delay, "delay should be 10s")
 	a.NoError(err, "there should be no error")
 
-	delay, err = ParseDelay(5.5)
-	a.Equal(5.5, delay, "delay should be 5.5")
+	delay, err = ParseDelay("20ms")
+	a.Equal(20*time.Millisecond, delay, "delay should be 20ms")
 	a.NoError(err, "there should be no error")
 
-	delay, err = ParseDelay(-10)
-	a.Equal(0.0, delay, "delay should be 0 when negative is given")
+	delay, err = ParseDelay("3s")
+	a.Equal(3*time.Second, delay, "delay should be 3s")
+	a.NoError(err, "there should be no error")
+
+	delay, err = ParseDelay("5.5")
+	a.Equal(time.Duration(5.5*float64(time.Second)), delay, "delay should be 5.5s")
+	a.NoError(err, "there should be no error")
+
+	delay, err = ParseDelay("-10")
+	a.Equal(time.Duration(0), delay, "delay should be 0 when negative is given")
 	a.Error(err, "there should be an error when negative is given")
 }
 

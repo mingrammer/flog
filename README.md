@@ -20,9 +20,8 @@ It is recommended to also run `dep ensure` to make sure that the dependencies ar
 
 ### Using [homebrew](https://brew.sh)
 
-```
-brew tap mingrammer/flog
-brew install flog
+```bash
+brew install mingrammer/flog/flog
 ```
 
 ### Using .tar.gz archive

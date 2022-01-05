@@ -23,6 +23,8 @@ const (
 	CommonLogFormat = "%s - %s [%s] \"%s %s %s\" %d %d"
 	// JSONLogFormat : {"host": "{host}", "user-identifier": "{user-identifier}", "datetime": "{datetime}", "method": "{method}", "request": "{request}", "protocol": "{protocol}", "status", {status}, "bytes": {bytes}, "referer": "{referer}"}
 	JSONLogFormat = `{"host":"%s", "user-identifier":"%s", "datetime":"%s", "method": "%s", "request": "%s", "protocol":"%s", "status":%d, "bytes":%d, "referer": "%s"}`
+	// SpringBootLogFormat : "{timestamp} {severity} {pid} --- [{thread-id}] {classname}: {message}"
+	SpringBootLogFormat = "%s %s %s --- [%s] %s: %s"
 )
 
 // NewApacheCommonLog creates a log string with apache common log format
@@ -129,5 +131,18 @@ func NewJSONLogFormat(t time.Time) string {
 		gofakeit.StatusCode(),
 		gofakeit.Number(0, 30000),
 		gofakeit.URL(),
+	)
+}
+
+// NewSpringBootLogFormat creates a log string with spring boot default format
+func NewSpringBootLogFormat(t time.Time) string {
+	return fmt.Sprintf(
+		SpringBootLogFormat,
+		t.Format(Java),
+		strings.ToUpper(gofakeit.LogLevel("general")),
+		gofakeit.StreetNumber(),
+		gofakeit.BuzzWord(),
+		gofakeit.DomainSuffix()+"."+gofakeit.BS()+"."+gofakeit.Word()+"."+gofakeit.FirstName(),
+		gofakeit.HackerPhrase(),
 	)
 }

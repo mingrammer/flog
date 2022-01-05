@@ -26,6 +26,7 @@ Options:
                            - rfc3164
                            - rfc5424
                            - json
+                           - spring_boot
   -o, --output string      output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        log output type. available types:
                            - stdout (default)
@@ -45,7 +46,7 @@ Options:
   -l, --loop               loop output forever until killed.
 `
 
-var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164", "rfc5424", "common_log", "json"}
+var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164", "rfc5424", "common_log", "json", "spring_boot"}
 var validTypes = []string{"stdout", "log", "gz"}
 
 // Option defines log generator options

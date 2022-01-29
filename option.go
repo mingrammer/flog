@@ -26,6 +26,7 @@ Options:
                            - rfc3164
                            - rfc5424
                            - json
+                           - logfmt
   -o, --output string      output filename. Path-like is allowed. (default "generated.log")
   -t, --type string        log output type. available types:
                            - stdout (default)

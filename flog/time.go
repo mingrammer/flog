@@ -1,4 +1,4 @@
-package main
+package flog
 
 // Custom predefined layouts
 const (

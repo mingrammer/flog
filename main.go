@@ -5,12 +5,13 @@ import (
 	"time"
 
 	"github.com/mingrammer/cfmt"
+	"github.com/mingrammer/flog/flog"
 )
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	opts := ParseOptions()
-	if err := Run(opts); err != nil {
+	opts := flog.ParseOptions()
+	if err := flog.Run(opts); err != nil {
 		cfmt.Warningln(err.Error())
 	}
 }

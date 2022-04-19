@@ -1,4 +1,4 @@
-package main
+package flog
 
 import (
 	"compress/gzip"
@@ -130,6 +130,8 @@ func NewLog(format string, t time.Time) string {
 		return NewCommonLogFormat(t)
 	case "json":
 		return NewJSONLogFormat(t)
+	case "logfmt":
+		return NewLogFmtLogFormat(t)
 	default:
 		return ""
 	}

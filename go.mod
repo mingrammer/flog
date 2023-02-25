@@ -13,5 +13,5 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.0
 	github.com/stretchr/testify v1.2.1
-	golang.org/x/sys v0.0.0-20180416112224-2f57af4873d0 // indirect
+	golang.org/x/sys v0.1.0 // indirect
 )

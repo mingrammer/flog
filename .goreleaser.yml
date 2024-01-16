@@ -44,5 +44,5 @@ brews:
       owner: mingrammer
       name: homebrew-flog
       branch: main
-      token: "{{ .Env.GITHUB_TOKEN }}"
+      token: "{{ .Env.GH_PAT }}"
     install: bin.install "flog"

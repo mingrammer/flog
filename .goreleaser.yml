@@ -1,7 +1,8 @@
 project_name: flog
 
 builds:
-  - binary: flog
+  - id: cli
+    binary: flog
     goos:
       - windows
       - darwin
@@ -9,33 +10,31 @@ builds:
     goarch:
       - amd64
 
-changelog:
-  sort: asc
-  filters:
-    exclude:
-    - '^docs:'
-    - Update README.md
-    - Merge pull request
-    - Merge branch
-
 archives:
-  - format: tar.gz
+  - id: archive
+    builds:
+      - cli
+    format: tar.gz
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     files:
       - LICENSE
       - README.md
 
-release:
-  github:
-    owner: mingrammer
-    name: flog
-  name_template: '{{.Tag}}'
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - Update README.md
+      - Merge pull request
+      - Merge branch
 
 brews:
   - name: flog
-    github:
-      owner: mingrammer
-      name: homebrew-flog
+    download_strategy: CurlDownloadStrategy
     commit_author:
       name: mingrammer
       email: mingrammer@gmail.com

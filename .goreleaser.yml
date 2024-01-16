@@ -40,4 +40,9 @@ brews:
       email: mingrammer@gmail.com
     homepage: https://github.com/mingrammer/flog
     description: "A fake log generator for common log formats"
+    repository:
+      owner: mingrammer
+      name: homebrew-flog
+      branch: main
+      token: "{{ .Env.GITHUB_TOKEN }}"
     install: bin.install "flog"

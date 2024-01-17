@@ -96,6 +96,7 @@ $ flog -f rfc3164 -l
 - RFC5424
 - Common log fomat
 - JSON
+- logfmt
 
 ## Supported Outputs
 

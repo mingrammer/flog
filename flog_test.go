@@ -25,6 +25,7 @@ func ExampleNewLog() {
 	fmt.Println(NewLog("common_log", created))
 	fmt.Println(NewLog("unknown", created))
 	fmt.Println(NewLog("json", created))
+	fmt.Println(NewLog("spring_boot", created))
 	// Output:
 	// 222.83.191.222 - - [22/Apr/2018:09:30:00 +0000] "DELETE /innovate/next-generation HTTP/1.1" 406 7610
 	// 144.199.149.125 - waelchi7603 [22/Apr/2018:09:30:00 +0000] "PUT /revolutionary HTTP/1.1" 301 8089 "https://www.futureaggregate.io/users" "Mozilla/5.0 (Macintosh; PPC Mac OS X 10_6_5 rv:4.0; en-US) AppleWebKit/536.38.2 (KHTML, like Gecko) Version/6.0 Safari/536.38.2"
@@ -34,6 +35,7 @@ func ExampleNewLog() {
 	// 195.44.200.155 - kihn6187 [22/Apr/2018:09:30:00 +0000] "GET /revolutionary/e-markets/holistic/syndicate HTTP/2.0" 404 14503
 	//
 	// {"host":"13.108.182.26", "user-identifier":"bailey7205", "datetime":"22/Apr/2018:09:30:00 +0000", "method": "GET", "request": "/out-of-the-box/architectures/embrace", "protocol":"HTTP/1.0", "status":200, "bytes":5921, "referer": "http://www.dynamicexperiences.io/robust"}
+	// 2018-04-22 09:30:00.000 DEBUG 18188 --- [flexibility] net.recontextualize.iusto.Freda: I'Ll navigate the virtual JSON circuit, that should program the CSS pixel!
 }
 
 func TestNewSplitFileName(t *testing.T) {

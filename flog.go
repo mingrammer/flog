@@ -130,6 +130,8 @@ func NewLog(format string, t time.Time) string {
 		return NewCommonLogFormat(t)
 	case "json":
 		return NewJSONLogFormat(t)
+	case "spring_boot":
+		return NewSpringBootLogFormat(t)
 	default:
 		return ""
 	}

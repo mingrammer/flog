@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -46,7 +47,7 @@ Options:
 `
 
 var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164", "rfc5424", "common_log", "json"}
-var validTypes = []string{"stdout", "log", "gz"}
+var validTypes = []string{"stdout", "syslog", "log", "gz"}
 
 // Option defines log generator options
 type Option struct {
@@ -173,7 +174,7 @@ func ParseOptions() *Option {
 	help := pflag.BoolP("help", "h", false, "Show this help message")
 	version := pflag.BoolP("version", "v", false, "Show version")
 	format := pflag.StringP("format", "f", opts.Format, "Log format")
-	output := pflag.StringP("output", "o", opts.Output, "Path-like output filename")
+	output := pflag.StringP("output", "o", opts.Output, "Path-like output filename or IP address (for syslog)")
 	logType := pflag.StringP("type", "t", opts.Type, "Log output type")
 	number := pflag.IntP("number", "n", opts.Number, "Number of lines to generate")
 	bytes := pflag.IntP("bytes", "b", opts.Bytes, "Size of logs to generate. (in bytes)")
@@ -214,6 +215,18 @@ func ParseOptions() *Option {
 	if opts.SplitBy, err = ParseSplitBy(*splitBy); err != nil {
 		errorExit(err)
 	}
+
+	if opts.Type == "syslog" {
+		connectionString := *output
+		conn, err := url.Parse(connectionString)
+		if err != nil {
+			errorExit(err)
+		}
+		if (conn.Scheme == "" || conn.Host == "") || conn.Port() == "" {
+			errorExit(errors.New("invalid syslog address format. Please use the format: protocol://host:port (e.g. udp://localhost:514)"))
+		}
+	}
+
 	opts.Output = *output
 	opts.Overwrite = *overwrite
 	opts.Forever = *forever

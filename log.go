@@ -87,6 +87,23 @@ func NewRFC3164Log(t time.Time) string {
 
 // NewRFC5424Log creates a log string with syslog (RFC5424) format
 func NewRFC5424Log(t time.Time) string {
+	structuredData := func() string {
+		// Valid examples	https://datatracker.ietf.org/doc/html/rfc5424#section-6.3.5
+		structuredFormat := "[exampleSDID@%d iut=\"%d\" eventSource=\"Application\" eventID=\"%d\"][examplePriority@%d class=\"high\" method=\"%s\" uri=\"%s\" status_code=\"%d\" time_millis=\"%d\" remote_host=\"%s\" remote_ip_addr=\"%s\"]"
+		return fmt.Sprintf(
+			structuredFormat,
+			gofakeit.Number(100000, 900000),
+			gofakeit.Number(1, 10),
+			gofakeit.Number(100, 999999),
+			gofakeit.Number(10000, 99999),
+			gofakeit.HTTPMethod(),
+			RandResourceURI(),
+			gofakeit.StatusCode(),
+			gofakeit.Number(1, 300),
+			gofakeit.IPv4Address(),
+			gofakeit.IPv4Address(),
+		)
+	}
 	return fmt.Sprintf(
 		RFC5424Log,
 		gofakeit.Number(0, 191),
@@ -96,7 +113,7 @@ func NewRFC5424Log(t time.Time) string {
 		gofakeit.Word(),
 		gofakeit.Number(1, 10000),
 		gofakeit.Number(1, 1000),
-		"-", // TODO: structured data
+		structuredData(),
 		gofakeit.HackerPhrase(),
 	)
 }

@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"testing"
 	"time"
 
 	"bou.ke/monkey"
+	"github.com/influxdata/go-syslog/rfc5424"
 )
 
 var stopped = time.Date(2018, 04, 22, 9, 30, 0, 0, time.UTC)
@@ -62,7 +64,26 @@ func ExampleNewRFC5424Log() {
 
 	created := time.Now()
 	fmt.Println(NewRFC5424Log(created))
-	// Output: <24>3 2018-04-22T09:30:00.000Z futurefunctionalities.biz nisi 9030 ID160 - If we back up the program, we can get to the SSL sensor through the redundant SAS program!
+	// Output: <24>3 2018-04-22T09:30:00.000Z futurefunctionalities.biz nisi 9030 ID160 [exampleSDID@384101 iut="9" eventSource="Application" eventID="563169"][examplePriority@48929 class="high" method="DELETE" uri="/revolutionary/benchmark" status_code="406" time_millis="97" remote_host="199.149.125.36" remote_ip_addr="116.222.184.135"] The PCI firewall is down, parse the multi-byte interface so we can connect the SAS program!
+}
+
+func TestNewRFC5424LogParse(t *testing.T) {
+	rand.Seed(11)
+
+	monkey.Patch(time.Now, func() time.Time { return stopped })
+	defer monkey.Unpatch(time.Now)
+
+	created := time.Now()
+	rfc5424text := NewRFC5424Log(created)
+	rfc5424bytes := []byte(rfc5424text)
+	withBestEffort := false
+
+	p := rfc5424.NewParser()
+	_, err := p.Parse(rfc5424bytes, &withBestEffort)
+	if err != nil {
+		t.Errorf("Error parsing: '%s'", err)
+	}
+
 }
 
 func ExampleNewCommonLogFormat() {

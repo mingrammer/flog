@@ -11,7 +11,7 @@ import (
 )
 
 func ExampleNewLog() {
-	rand.Seed(11)
+	rand.New(rand.NewSource(11))
 
 	monkey.Patch(time.Now, func() time.Time { return stopped })
 	defer monkey.Unpatch(time.Now)

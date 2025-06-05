@@ -4,6 +4,8 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io"
+	"log/syslog"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -29,8 +31,8 @@ func Generate(option *Option) error {
 		interval = option.Sleep
 	}
 
-	logFileName := option.Output
-	writer, err := NewWriter(option.Type, logFileName)
+	outPut := option.Output
+	writer, err := NewWriter(option.Type, outPut)
 	if err != nil {
 		return err
 	}
@@ -53,10 +55,10 @@ func Generate(option *Option) error {
 
 			if (option.Type != "stdout") && (option.SplitBy > 0) && (line > option.SplitBy*splitCount) {
 				_ = writer.Close()
-				fmt.Println(logFileName, "is created.")
+				fmt.Println(outPut, "is created.")
 
-				logFileName = NewSplitFileName(option.Output, splitCount)
-				writer, _ = NewWriter(option.Type, logFileName)
+				outPut = NewSplitFileName(option.Output, splitCount)
+				writer, _ = NewWriter(option.Type, outPut)
 
 				splitCount++
 			}
@@ -73,10 +75,10 @@ func Generate(option *Option) error {
 			bytes += len(log)
 			if (option.Type != "stdout") && (option.SplitBy > 0) && (bytes > option.SplitBy*splitCount+1) {
 				_ = writer.Close()
-				fmt.Println(logFileName, "is created.")
+				fmt.Println(outPut, "is created.")
 
-				logFileName = NewSplitFileName(option.Output, splitCount)
-				writer, _ = NewWriter(option.Type, logFileName)
+				outPut = NewSplitFileName(option.Output, splitCount)
+				writer, _ = NewWriter(option.Type, outPut)
 
 				splitCount++
 			}
@@ -86,23 +88,38 @@ func Generate(option *Option) error {
 
 	if option.Type != "stdout" {
 		_ = writer.Close()
-		fmt.Println(logFileName, "is created.")
+		fmt.Println(outPut, "is created.")
 	}
 	return nil
 }
 
 // NewWriter returns a closeable writer corresponding to given log type
-func NewWriter(logType string, logFileName string) (io.WriteCloser, error) {
+func NewWriter(logType string, outPut string) (io.WriteCloser, error) {
 	switch logType {
 	case "stdout":
 		return os.Stdout, nil
+	case "syslog":
+		connectionString := outPut
+		conn, err := url.Parse(connectionString)
+		if err != nil {
+			return nil, err
+		}
+
+		sysLog, err := syslog.Dial(conn.Scheme, conn.Host, syslog.LOG_WARNING|syslog.LOG_DAEMON, "demotag")
+		if err != nil {
+			return nil, err
+		}
+
+		return sysLog, nil
 	case "log":
+		logFileName := outPut
 		logFile, err := os.Create(logFileName)
 		if err != nil {
 			return nil, err
 		}
 		return logFile, nil
 	case "gz":
+		logFileName := outPut
 		logFile, err := os.Create(logFileName)
 		if err != nil {
 			return nil, err

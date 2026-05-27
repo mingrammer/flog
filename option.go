@@ -43,6 +43,7 @@ Options:
                            with "byte" option, the logs will be split whenever the maximum size in bytes is reached.
   -w, --overwrite          overwrite the existing log files.
   -l, --loop               loop output forever until killed.
+  -r, --seed               seed to initialise the random number generator, defaults to the current timestamp.
 `
 
 var validFormats = []string{"apache_common", "apache_combined", "apache_error", "rfc3164", "rfc5424", "common_log", "json"}
@@ -60,6 +61,7 @@ type Option struct {
 	SplitBy   int
 	Overwrite bool
 	Forever   bool
+	Seed      int64
 }
 
 func init() {
@@ -166,6 +168,10 @@ func ParseSplitBy(splitBy int) (int, error) {
 
 // ParseOptions parses given parameters from command line
 func ParseOptions() *Option {
+	return parseOptions(time.Now)
+}
+
+func parseOptions(now func() time.Time) *Option {
 	var err error
 
 	opts := defaultOptions()
@@ -182,6 +188,7 @@ func ParseOptions() *Option {
 	splitBy := pflag.IntP("split", "p", opts.SplitBy, "Maximum number of lines or size of a log file")
 	overwrite := pflag.BoolP("overwrite", "w", false, "Overwrite the existing log files")
 	forever := pflag.BoolP("loop", "l", false, "Loop output forever until killed")
+	seed := pflag.Int64P("seed", "r", now().UnixMicro(), "Seed to initialise the random number generator, defaults to the current timestamp")
 
 	pflag.Parse()
 
@@ -217,5 +224,6 @@ func ParseOptions() *Option {
 	opts.Output = *output
 	opts.Overwrite = *overwrite
 	opts.Forever = *forever
+	opts.Seed = *seed
 	return opts
 }

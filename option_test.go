@@ -106,6 +106,10 @@ func TestParseSplitBy(t *testing.T) {
 func TestParseOptions(t *testing.T) {
 	a := assert.New(t)
 
-	option := ParseOptions()
+	now := func() time.Time {
+		return time.Unix(0, 0)
+	}
+
+	option := parseOptions(now)
 	a.Equal(defaultOptions(), option, "without flags, option should be default one")
 }

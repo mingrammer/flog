@@ -3,7 +3,6 @@ module github.com/chronosphereio/calyptia-flog
 go 1.22
 
 require (
-	bou.ke/monkey v1.0.2
 	github.com/brianvoe/gofakeit/v6 v6.28.0
 	github.com/mingrammer/cfmt v1.1.0
 	github.com/spf13/pflag v1.0.5
